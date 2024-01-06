@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import MyTopArtists from './components/MyTopArtists'
 
 export default function Home() {
 
@@ -47,25 +48,7 @@ export default function Home() {
   }
 // - - - - - - 
 
-
-
-  const searchMyTopArtists = async (e) => {
-    const {data:myTopItems} = await axios.get("https://api.spotify.com/v1/me/top/artists?limit=20&offset=0",{
-     headers: {
-      Authorization:`Bearer ${token}`
-    //  }
-    //  ,
-    //    params: {
-    //    type: "artists",
-    //    time_range: "medium_term",
-    //    limit: 30
-     }
-
-     })
-
-    console.log(myTopItems)
-  }
-
+  // renders the searched artist
   const renderSpartists = () => {
     return artists.map(artist => (
       <div  key={artist.id}>
@@ -88,9 +71,9 @@ export default function Home() {
         <input type="text" className="text-purple-500" onChange={e => setSearchArtistKey(e.target.value)}/> 
       <button type={"submit"}> Search </button>
       </form>
-      <div> {searchMyTopArtists()}</div>
-      <div> {renderSpartists()}</div>
-      
+
+      {/* <div> {renderSpartists()}</div> */}
+      {/* <MyTopArtists token={token}/> */}
       
 
 
