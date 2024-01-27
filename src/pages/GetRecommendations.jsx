@@ -21,7 +21,7 @@ const GetRecommendations = ({songs}) => {
 
 
   const {data:recSongsData, status, error} = useQuery({
-      queryKey:["recSongsQuery"],
+      queryKey:["recSongsQuery",songs],
       enabled:!!session,
       queryFn:() => {
         const seedsongs = ""
@@ -40,7 +40,7 @@ const GetRecommendations = ({songs}) => {
       }
     })
 
-    console.log("rec:", recSongsData, status, error)
+    console.log("recommended:", recSongsData, status, error)
 
     
   return (

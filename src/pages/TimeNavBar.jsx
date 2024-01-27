@@ -4,14 +4,14 @@ import OtherPage from './otherpage';
 
 
 
-const TimeNavBar = () => {
+const TimeNavBar = ({setTimeFrame}) => {
 
 
 const [timeSelected, setTimeSelected] = useState('initialValue');
 
 const handleButtonClick = (timeSelected) => {
     // Change the value of myVariable when the button is clicked
-    setTimeSelected(timeSelected);
+    setTimeFrame(timeSelected);
     console.log(timeSelected)
 }
   return (
