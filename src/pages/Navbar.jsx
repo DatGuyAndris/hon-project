@@ -1,6 +1,7 @@
 import React from 'react';
 import OtherPage from './otherpage';
 import {signIn} from "next-auth/react"
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -9,8 +10,8 @@ const Navbar = () => {
       <div style={styles.container}>
         {/* <div style={styles.brand}>Your Logo</div> */}
         <div style={styles.buttonsContainer}>
-          <a href="/"> <button style={styles.button}>Your Data</button></a> 
-          <a href="otherpage"><button style={styles.button}>Other Stuff</button> </a> 
+          <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
+          <Link href="otherpage"><button style={styles.button}>Other Stuff</button> </Link> 
           <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.button}> Login</button> 
 
 

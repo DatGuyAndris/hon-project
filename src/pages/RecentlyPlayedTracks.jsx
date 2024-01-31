@@ -27,7 +27,7 @@ const RecentlyPlayedTracks = () => {
 
         const {data:myRecentSongsAttributeData} = useQuery({
           queryKey:["myRecentSongsAttributeQuery"],
-          enabled:!!session,
+          enabled:!!session?.accessToken,
           queryFn:() => {
             const trackIds = myRecentSongsData.data?.items.map((track) => track.track.id);
             const trackIdsString = trackIds.join(",");
@@ -46,7 +46,7 @@ const RecentlyPlayedTracks = () => {
 
     <main>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
-      <><div>Recent: {myRecentSongsData.data?.items.map((recent)=><div key={recent.track.id}>{recent.track.name} </div> )}</div> <div div className='mt-20'><GetRecommendations songs={myRecentSongsData.data.items}/>  </div> </>
+      <><div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} </div> )}</div> <div className='mt-20'><GetRecommendations songs={myRecentSongsData.data.items}/>  </div> </>
     ) : (null)}
 
 
