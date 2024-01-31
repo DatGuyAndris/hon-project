@@ -20,9 +20,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const [timeFrame, setTimeFrame] = useState("short_term")
 
-  
+  // The api call for top artists, refetch to change the params for selected time frame 
+   const [timeFrame, setTimeFrame] = useState('short_term')
    const{data:session} = useSession()
    const {data:myTopArtistData,status,refetch} = useQuery({
     queryKey: ["myTopArtistQuery"],
@@ -38,7 +38,6 @@ export default function Home() {
        })
     } 
    })
-
    console.log("topArtists",myTopArtistData)
    console.log(status)
 
@@ -52,12 +51,10 @@ export default function Home() {
     <main 
       className="flex flex-col items-center"> 
 
-      <div> aaaa///sss  access token: {session?.accessToken}  </div>
+      <div>access token: {session?.accessToken}  </div>
       <Navbar/>
       <div>
         
-      <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} className="bg-gray-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-half" > Login Page </button> 
-       
       </div>
       <TimeNavBar setTimeFrame={setTimeFrame}/>
       
@@ -65,10 +62,15 @@ export default function Home() {
       <div className='mt-20'> <GetCurrentSong/> </div>
 
 
+
+      {/* Top Artists graph, checks for data first then displays it  */}
       {myTopArtistData?.data?.items  ? ( <>
-       <div className=' grid grid-cols-10  content-start mt-20'> {myTopArtistData.data?.items.map((topArtist)=><div key={topArtist.id}>{topArtist.name}
-        - Popularity: {topArtist.popularity} <img src={topArtist.images[0].url } width='50%' height='50%'></img></div>)}
+       <div className=' grid grid-cols-1  content-start mt-20 max-h-96 overflow-y-auto'> {myTopArtistData.data?.items.map((topArtist)=><div key={topArtist.id}>{topArtist.name}
+        - Popularity: {topArtist.popularity} <img src={topArtist.images[0].url } width='30%' height='30%'></img></div>)}
         </div> 
+
+
+        {/* The chart itself */}
        <div className='w-3/4 h-96'><ResponsiveContainer>
         <LineChart
           //width={1400}
@@ -109,7 +111,7 @@ export default function Home() {
 
 
 
-
+// Custom tooltip when hovering over points in the popularity chart
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
