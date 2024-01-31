@@ -2,19 +2,16 @@ import React from 'react'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import RecentlyPlayedTracks from './RecentlyPlayedTracks'
-import TopSongsTwo from './TopSongsTwo'
-import { fromJSON } from 'postcss'
 
 const GetRecommendations = ({songs}) => {
 
   const{data:session} = useSession()
 
-  const seedTracks =  songs.map((song) => song.track.id);
+  const seedTracks =  songs?.map((song) => song.track.id);
    const seedTrackIds = seedTracks.slice(0,3).join(",")
 
 
-   const seedArtists = songs.map((artist) => artist.track.artists[0].id);
+   const seedArtists = songs?.map((artist) => artist.track.artists[0].id);
    const seedArtistIds = seedArtists.slice(0,2).join(",")
 
   console.log(seedTrackIds)
