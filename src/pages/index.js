@@ -12,8 +12,8 @@ import Navbar from "./Navbar";
 import Login from "./login";
 import { signIn } from "next-auth/react";
 import TimeNavBar from "./TimeNavBar";
-
 import TopSongsAndArtists from "./TopSongsAndArtists";
+//import { TestingDB } from "./TestingDB";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,20 +26,22 @@ export default function Home() {
     <main className="flex flex-col items-center">
       <div>access token: {session?.accessToken} </div>
       <Navbar />
-      <div></div>
+
       <TimeNavBar setTimeFrame={setTimeFrame} />
+
+      {session?.accessToken ? (
+        <TopSongsAndArtists session={session} timeFrame={timeFrame} />
+      ) : null}
+
+      <div className="mt-20">
+        <RecentlyPlayedTracks />
+      </div>
 
       <div className="mt-20">
         <GetCurrentSong />
       </div>
-      {session?.accessToken ? <TopSongsAndArtists /> : null}
 
-      {/* <div className='mt-20'><TopSongsTwo/>  </div>  */}
-      <div className="mt-20">
-        <RecentlyPlayedTracks />
-      </div>
+      {/* <TestingDB  /> */}
     </main>
   );
 }
-
-// Custom tooltip when hovering over points in the popularity chart

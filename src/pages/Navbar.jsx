@@ -12,7 +12,7 @@ const Navbar = () => {
         <div style={styles.buttonsContainer}>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
           <Link href="otherpage"><button style={styles.button}>Other Stuff</button> </Link> 
-          <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.button}> Login</button> 
+          <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button> 
 
 
         </div>
@@ -45,7 +45,7 @@ const styles = {
       button: {
         
         marginLeft: '1rem',
-        padding: '2rem 5rem',  // Adjusted button size
+        padding: '1rem 3rem',  // Adjusted button size
         backgroundColor: 'rgba(0, 153, 51, 0.15)',
         transition: 'background-color 0.3s ease', 
         ':hover': {
@@ -56,6 +56,22 @@ const styles = {
         borderRadius: '4px',
         cursor: 'pointer',
       },
+
+      loginbutton: {
+        marginLeft: '1rem',
+        padding: '1rem 3rem',  // Adjusted button size
+        backgroundColor: 'rgba(0, 153, 51, 0.15)',
+        transition: 'background-color 0.3s ease', 
+        ':hover': {
+          backgroundColor: 'rgba(255, 153, 51, 0.5)'}, 
+        height: '100%',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        
+
+      }
 };
 
 export default Navbar;

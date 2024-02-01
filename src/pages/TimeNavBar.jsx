@@ -7,7 +7,6 @@ import {useState} from 'react'
 const TimeNavBar = ({setTimeFrame}) => {
 
 
-const [timeSelected, setTimeSelected] = useState('initialValue');
 
 const handleButtonClick = (timeSelected) => {
     // Change the value of myVariable when the button is clicked
@@ -58,7 +57,7 @@ const styles = {
       button: {
         
         marginLeft: '1rem',
-        padding: '2rem 4rem',  // Adjusted button size
+        padding: '1rem 4rem',  // Adjusted button size
         backgroundColor: 'rgba(100, 153, 51, 0.15)',
         transition: 'background-color 0.3s ease', 
         ':hover': {

@@ -14,12 +14,13 @@ import {
     Tooltip,
     Legend,
   } from "recharts";
+import TopGenresChart from './TopGenresChart';
 
-const TopSongsAndArtists = ({timeFrame}) => {
+const TopSongsAndArtists = ({timeFrame, session}) => {
 
     
-    const { data: session } = useSession();
   
+  // Top Artists API call, sets timeFrame from TimeNavBar
     const {
       data: myTopArtistData,
       status,
@@ -33,11 +34,13 @@ const TopSongsAndArtists = ({timeFrame}) => {
             Authorization: `Bearer ${session.accessToken}`,
           },
           params: {
-            time_range: timeFrame,
+            limit: 40,
+            time_range: timeFrame
           },
         });
       },
     });
+    // Top Songs API call, sets timeFrame from TimeNavBar
     const {
       data: myTopSongsData,
       refetch: ts,
@@ -51,50 +54,91 @@ const TopSongsAndArtists = ({timeFrame}) => {
             Authorization: `Bearer ${session.accessToken}`,
           },
           params: {
-            limit: 10,
-            time_range: timeFrame,
+            limit: 40,
+            time_range: timeFrame
           },
         });
       },
     });
+
+    const {
+      data:myTopSongsAttributeData,
+      refetch: tsa,
+      error:atterror
+    } = useQuery({
+      queryKey:["myTopSongsAttributeQuery"],
+      enabled:!!session,
+      queryFn:() => {
+        const topTrackIds = myTopSongsData?.data.items.map((topTrack) => topTrack.id);
+        const topTrackIdsString = topTrackIds.join(",");
+        console.log("SongAttributes", topTrackIds)
+        return axios.get(`https://api.spotify.com/v1/audio-features`, {
+        params: {
+          ids: topTrackIdsString,
+        },
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        }
+      })   
+ }  
+})
+console.log("topSongAttributes", myTopSongsAttributeData,atterror)
   
     console.log("topArtists", myTopArtistData);
     console.log("topSongs", myTopSongsData, error);
     console.log(status);
   
     useEffect(() => {
-      refetch(), ts();
+      refetch(), ts(), tsa();
     }, [timeFrame]);
+    
   return (
-    <div>
-    {/* Top Artists graph, checks for data first then displays it  */}
+
+
+
+    <div className='w-5/6 flex flex-col '>
+    {/*Displaying the data from both api calls and a graph of top artist popularity  -- - - - - - - -  */}
+
+    {/*  Displaying top artists if there is top artist data     */}
+
     {myTopArtistData && myTopArtistData.data?.items ? (
         <>
-          <div className=" grid grid-cols-2  content-start mt-20 max-h-96 overflow-y-auto">
+          <div className="overflow-y-hidden flex h-80 justify-stretch w-full">
+            
             {myTopArtistData.data.items.map((topArtist) => (
-              <div key={"topArtist_" + topArtist.id}>
-                {topArtist.name}- Popularity: {topArtist.popularity}
-                <img
+              <div key={"topArtist_" + topArtist.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse'>
+                <img className='w-44 h-48 object-cover'
                   src={topArtist.images[0].url}
-                  width="30%"
-                  height="30%"
+                  // width="100%"
+                  // height="100%"
                 ></img>
+                <p className='w-44 h-full' >{topArtist.name}- Popularity: {topArtist.popularity}</p>
+                
               </div>
             ))}
           </div>
 
+    {/*  Displaying top songs if there is top song data     */}
           {myTopSongsData && myTopSongsData.data?.items ? (
-            <div>
-              Top Songs:
+            <div className='overflow-y-hidden flex h-80 justify-stretch w-full' >
+             
               {myTopSongsData.data.items.map((topSong) => (
-                <div key={"topSongs_" + topSong.id}>
-                  {topSong.name} - {topSong.artists[0].name}
+                <div key={"topSongs_" + topSong.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse' >
+                  <p className='w-44 h-full'> {topSong.name} - {topSong.artists[0].name} </p>
+                  <img
+                  src={topSong.album.images[0].url}
+                // width="100%"
+                // height="100%"
+                className='w-full h-full'
+                ></img>
+                 
                 </div>
               ))}
             </div>
           ) : null}
-
-          {/* The chart itself */}
+        
+        
+          {/* The popularity chart  - - -  */}
           <div className="w-3/4 h-96">
             <ResponsiveContainer>
               <LineChart
@@ -131,13 +175,17 @@ const TopSongsAndArtists = ({timeFrame}) => {
           </div>
         </>
       ) : null}
-      </div>
+      {myTopArtistData? (
+      <div  className="w-3/4 h-96">
+        <TopGenresChart topArtists = {myTopArtistData}/> </div>) : null}
+      </div> 
+    
   )
 }
 
 export default TopSongsAndArtists
 
-
+// Custom tooltip when hovering over points in the popularity chart
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
