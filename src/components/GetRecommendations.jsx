@@ -41,9 +41,9 @@ const GetRecommendations = ({songs}) => {
 
     
   return (
-    <main>
+    <main className=''> 
     {recSongsData && recSongsData.data?.tracks ? (
-      <div>Recommended songs: {recSongsData.data?.tracks.map((recSong)=><div key={"recommended_"+recSong.id}>{recSong.name} - {recSong.artists[0].name} </div>)}</div>
+      <div>Recommended songs: {recSongsData.data?.tracks.map((recSong)=><div key={"recommended_"+recSong.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col text-l'>{recSong.name} - {recSong.artists[0].name} </div>)}</div>
     ) : (null)}
     </main>
   )

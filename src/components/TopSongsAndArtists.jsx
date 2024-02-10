@@ -15,6 +15,7 @@ import {
     Legend,
   } from "recharts";
 import TopGenresChart from './TopGenresChart';
+import ArtistPopularityChart from './ArtistPopularityChart';
 
 const TopSongsAndArtists = ({timeFrame, session}) => {
 
@@ -61,6 +62,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       },
     });
 
+    // Get song attributes for top songs
     const {
       data:myTopSongsAttributeData,
       refetch: tsa,
@@ -70,7 +72,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       enabled:!!session,
       queryFn:() => {
         const topTrackIds = myTopSongsData?.data.items.map((topTrack) => topTrack.id);
-        const topTrackIdsString = topTrackIds.join(",");
+        const topTrackIdsString = topTrackIds?.join(",");
         console.log("SongAttributes", topTrackIds)
         return axios.get(`https://api.spotify.com/v1/audio-features`, {
         params: {
@@ -103,24 +105,26 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
 
     {myTopArtistData && myTopArtistData.data?.items ? (
         <>
-          <div className="overflow-y-hidden flex h-80 justify-stretch w-full">
+        <p className='text-center text-2xl mt-5 '> Top Artists</p> 
+          <div className="overflow-y-hidden flex h-72 justify-stretch w-full">
             
-            {myTopArtistData.data.items.map((topArtist) => (
-              <div key={"topArtist_" + topArtist.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse'>
+            
+            {myTopArtistData.data.items.map((topArtist, index) => (
+              <div key={"topArtist_" + topArtist.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse scrollbar' >
                 <img className='w-44 h-48 object-cover'
                   src={topArtist.images[0].url}
                   // width="100%"
                   // height="100%"
                 ></img>
-                <p className='w-44 h-full' >{topArtist.name}- Popularity: {topArtist.popularity}</p>
+                <p className='w-44 h-full' >{index+1}.{topArtist.name}</p>
                 
               </div>
             ))}
           </div>
-
+          <p className='text-center text-2xl mt-5 '> Top Songs</p> 
     {/*  Displaying top songs if there is top song data     */}
           {myTopSongsData && myTopSongsData.data?.items ? (
-            <div className='overflow-y-hidden flex h-80 justify-stretch w-full' >
+            <div className='overflow-y-hidden flex h-72 justify-stretch w-full' >
              
               {myTopSongsData.data.items.map((topSong) => (
                 <div key={"topSongs_" + topSong.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse' >
@@ -138,8 +142,8 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
           ) : null}
         
         
-          {/* The popularity chart  - - -  */}
-          <div className="w-3/4 h-96">
+          {/* The popularity chart  - - -  Commented out cause not needed at the moment*/}
+          {/* <div className="w-full h-96">
             <ResponsiveContainer>
               <LineChart
                 //width={1400}
@@ -163,7 +167,6 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
                 <Tooltip content={<CustomTooltip />} />
                 <Legend />
 
-                {/* <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} /> */}
                 <Line
                   type="monotone"
                   dataKey="popularity"
@@ -172,20 +175,30 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </div> */}
         </>
       ) : null}
+
+      {/* If there is topArtistData set export the data to the other pages that use it */}
       {myTopArtistData? (
       <div  className="w-3/4 h-96">
-        <TopGenresChart topArtists = {myTopArtistData}/> </div>) : null}
+        <TopGenresChart topArtists = {myTopArtistData}/> 
+       <ArtistPopularityChart topArtistsData = {myTopArtistData}/></div> ) : null}
       </div> 
+      
     
   )
 }
 
 export default TopSongsAndArtists
 
-// Custom tooltip when hovering over points in the popularity chart
+
+
+
+
+
+
+// - - - - -- - - -- - - - - - - - -  Custom tooltip when hovering over points in the popularity chart - - - - -- - - -- - - - - - - - - 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (

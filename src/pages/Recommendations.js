@@ -13,39 +13,39 @@ import { signIn } from "next-auth/react";
 import TimeNavBar from "../components/TimeNavBar";
 import TopSongsAndArtists from "../components/TopSongsAndArtists";
 import ArtistPopularityChart from "@/components/ArtistPopularityChart";
-//import { TestingDB } from "./TestingDB";
+import GetRecommendations from "@/components/GetRecommendations";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  // The api call for top artists, refetch to change the params for selected time frame
-  const [timeFrame, setTimeFrame] = useState("short_term");
+export default function Recommendations() {
   const { data: session } = useSession();
+  const [timeFrame, setTimeFrame] = useState("short_term");
 
   return (
     <main className="flex flex-col items-center">
       <div>access token: {session?.accessToken} </div>
-
       <Navbar />
-      <div className="mt-5 w-full">
-        <TimeNavBar setTimeFrame={setTimeFrame} />
+      <div className="mt-20">
+        <GetCurrentSong />
       </div>
 
-      {session?.accessToken ? (
-        <TopSongsAndArtists session={session} timeFrame={timeFrame} />
-      ) : null}
+      <div> Other things will be here toooo</div>
 
-      {/* <div className="mt-20">
-        <RecentlyPlayedTracks />
-      </div> */}
+      <div className="mt-20">
+        Recommendations based on your top artists and songs, probably use short
+        term data
+      </div>
+      <RecentlyPlayedTracks />
 
-      {/* <div className="mt-20">
-        <GetCurrentSong />
-      </div> */}
+      <div className="mt-20">
+        If recently played songs skipped a lot, recommend a different genre
+        maybe? If difference from prev song timestamp to next song timestamp
+        less than song duration count as skipped
+      </div>
 
-      <ArtistPopularityChart />
-
-      {/* <TestingDB  /> */}
+      <div className="mt-20">
+        Something like if raining, give option of keeping normal recommended or
+        recommend more relaxing music or something like that for different
+        weather
+      </div>
     </main>
   );
 }

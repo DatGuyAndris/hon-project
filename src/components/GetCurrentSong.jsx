@@ -24,7 +24,12 @@ import React from 'react'
       
 
    return (
-     <div>GetCurrentSong</div>
+     <div>Currently Playing : {currentlyPlayingData && currentlyPlayingData.data? (
+      <>
+      <div key={currentlyPlayingData.data.item.id}> <p className='text-2xl text-green-200'>{currentlyPlayingData.data.item.name} - {currentlyPlayingData.data.item.artists[0].name}</p></div> 
+      </>
+    ) : (null)}
+</div>
    )
  }
  

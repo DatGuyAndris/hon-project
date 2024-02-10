@@ -1,18 +1,24 @@
 import React from 'react';
-import OtherPage from './otherpage';
+import OtherPage from '../pages/randomstats';
 import {signIn} from "next-auth/react"
 import Link from 'next/link';
+import { useSession } from "next-auth/react";
 
 
 const Navbar = () => {
+
+  const { data: session } = useSession();
+
   return (
     <nav style={styles.navbar}>
       <div style={styles.container}>
         {/* <div style={styles.brand}>Your Logo</div> */}
         <div style={styles.buttonsContainer}>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
-          <Link href="otherpage"><button style={styles.button}>Other Stuff</button> </Link> 
-          <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button> 
+          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link> 
+          <Link href="Recommendations"><button style={styles.button}>Recommendations</button> </Link> 
+          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>}
+          
 
 
         </div>
@@ -69,6 +75,7 @@ const styles = {
         border: 'none',
         borderRadius: '4px',
         cursor: 'pointer',
+        
         
 
       }

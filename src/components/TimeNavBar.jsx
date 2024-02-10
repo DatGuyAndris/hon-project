@@ -19,11 +19,11 @@ const handleButtonClick = (timeSelected) => {
         {/* <div style={styles.brand}>Your Logo</div> */}
         <div style={styles.buttonsContainer}>
 
-          <button style={styles.button} onClick={() => handleButtonClick('short_term')}  >Short Term</button>
+          <button style={styles.button} onClick={() => handleButtonClick('short_term')}  >Short Term {"(4 Weeks)"}</button>
 
-          <button style={styles.button} onClick={() => handleButtonClick('medium_term')}>Medium Term</button> 
+          <button style={styles.button} onClick={() => handleButtonClick('medium_term')}>Medium Term {"(6 Months)"}</button> 
 
-          <button style={styles.button} onClick={() => handleButtonClick('long_term')}>Long Term</button> 
+          <button style={styles.button} onClick={() => handleButtonClick('long_term')}>Long Term </button> 
     
         </div>
       </div>

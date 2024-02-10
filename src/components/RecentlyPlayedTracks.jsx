@@ -15,7 +15,7 @@ const RecentlyPlayedTracks = () => {
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/me/player/recently-played", {
         params: {
-          limit: 20,
+          limit: 50,
                 },
         headers: {
           Authorization: `Bearer ${session.accessToken}`,
@@ -41,12 +41,13 @@ const RecentlyPlayedTracks = () => {
           })   
      }
     })
-    console.log(myRecentSongsData)
+    console.log("recentlyplayed",myRecentSongsData)
   return (
 
     <main>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
-      <><div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} </div> )}</div> <div className='mt-20'><GetRecommendations songs={myRecentSongsData.data.items}/>  </div> </>
+      <><div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} - {recent.track.artists[0].name} </div> )}</div> <div className='mt-20'>
+        <GetRecommendations songs={myRecentSongsData.data.items}/>  </div> </>
     ) : (null)}
 
 

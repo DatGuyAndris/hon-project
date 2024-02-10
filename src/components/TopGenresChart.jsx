@@ -1,4 +1,5 @@
 "use client";
+import { Tooltip } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 
@@ -13,10 +14,10 @@ console.log("dataaaa",data)
         
       
         let genreExists = false;
-        updatedGenres.map((genreShit) => {
-          if (genreShit.genre === genre) {
+        updatedGenres.map((genreStuff) => {
+          if (genreStuff.genre === genre) {
             genreExists = true;
-            genreShit.count++;
+            genreStuff.count++;
           }
         });
         if (!genreExists && updatedGenres.length < 10) {
@@ -31,7 +32,7 @@ console.log("dataaaa",data)
   return (
     <div className="w-3/4 h-96">
       <ResponsiveContainer>
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={genresState}>
+        <RadarChart cx="50%" cy="50%" outerRadius="90%" data={genresState}>
           <PolarGrid />
           <PolarAngleAxis dataKey="genre" />
           <PolarRadiusAxis />
