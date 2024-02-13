@@ -12,7 +12,7 @@ export default function OtherPage() {
   return (
     <main className="flex flex-col items-center">
       <Navbar />
-      <div> Other things will be here</div>
+      <div> Just random stats and graphs here about the users music</div>
     </main>
   );
 }
