@@ -15,9 +15,10 @@ const Navbar = () => {
         {/* <div style={styles.brand}>Your Logo</div> */}
         <div style={styles.buttonsContainer}>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
-          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link> 
           <Link href="Recommendations"><button style={styles.button}>Recommendations</button> </Link> 
-          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>}
+          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link> 
+          <div className='float-right'>
+          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} </div>
           
 
 

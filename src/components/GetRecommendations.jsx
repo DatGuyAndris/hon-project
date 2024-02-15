@@ -25,7 +25,8 @@ const GetRecommendations = ({songs}) => {
         return axios.get("https://api.spotify.com/v1/recommendations", {
           params: {
             seed_tracks: seedTrackIds,
-            seed_artists: seedArtistIds
+            seed_artists: seedArtistIds,
+            max_popularity: 50
             
            // seed_genres: "rap"
 

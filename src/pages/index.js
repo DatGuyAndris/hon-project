@@ -27,6 +27,7 @@ export default function Home() {
       <div>access token: {session?.accessToken} </div>
 
       <Navbar />
+
       <div className="mt-5 w-full">
         <TimeNavBar setTimeFrame={setTimeFrame} />
       </div>
@@ -43,7 +44,7 @@ export default function Home() {
         <GetCurrentSong />
       </div> */}
 
-      <ArtistPopularityChart />
+      {/* <ArtistPopularityChart /> */}
 
       {/* <TestingDB  /> */}
     </main>

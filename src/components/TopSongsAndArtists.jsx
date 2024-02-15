@@ -181,7 +181,7 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
 
       {/* If there is topArtistData set export the data to the other pages that use it */}
       {myTopArtistData? (
-      <div  className="w-3/4 h-96">
+      <div >
         <TopGenresChart topArtists = {myTopArtistData}/> 
        <ArtistPopularityChart topArtistsData = {myTopArtistData}/></div> ) : null}
       </div> 

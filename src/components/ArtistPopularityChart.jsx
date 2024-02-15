@@ -12,14 +12,15 @@ const ArtistPopularityChart = ({topArtistsData}) => {
 
     
   return (
-   <> <div className="className=w-3/4 h-96"> 
+   <> <div className="h-96 m-5 block"> 
+   Top Artist Popularity
         <ResponsiveContainer>
         <BarChart
           
             data={topArtistsData?.data.items.map((topArtist2, index) => ({
             name: topArtist2.name,
             popularity: topArtist2.popularity,
-            rank: index,
+            rank: index +1,
             imgsrc: topArtist2.images[0].url,
           }))}
           margin={{
@@ -37,7 +38,8 @@ const ArtistPopularityChart = ({topArtistsData}) => {
           <Bar dataKey="popularity" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
 
         </BarChart>
-      </ResponsiveContainer> </div> </>
+      </ResponsiveContainer> 
+      </div> </>
 
 
 

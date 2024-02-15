@@ -30,7 +30,7 @@ console.log("dataaaa",data)
   }, [data]);
 
   return (
-    <div className="w-3/4 h-96">
+    <div className="w-3/4 h-96 mt-10">
       <ResponsiveContainer>
         <RadarChart cx="50%" cy="50%" outerRadius="90%" data={genresState}>
           <PolarGrid />
