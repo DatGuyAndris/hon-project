@@ -10,49 +10,33 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav style={styles.navbar}>
-      <div style={styles.container}>
+    <nav className='flex w-full flex-row-reverse'>
+      
         {/* <div style={styles.brand}>Your Logo</div> */}
-        <div style={styles.buttonsContainer}>
+      
+          
+          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} 
+
+         <div className='flex justify-center items-center w-full pl-40'>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
           <Link href="Recommendations"><button style={styles.button}>Recommendations</button> </Link> 
-          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link> 
-          <div className='float-right'>
-          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} </div>
-          
+          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link>
+          </div>
+           
 
-
-        </div>
-      </div>
+        
+    
     </nav>
   );
 };
 
 const styles = {
-    navbar: {
-        backgroundColor: 'rgba(0, 153, 51, 0.05)',
-        
-        color: '#fff',
-        padding: '0rem',
-        width: '100%',
-      },
-      container: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        maxWidth: '100vw',
-        margin: '0 auto',
-      },
-      buttonsContainer: {
-        display: 'flex',
-        flex: 1,
-        justifyContent:'center',
-      },
+   
       button: {
         
         marginLeft: '1rem',
         padding: '1rem 3rem',  // Adjusted button size
+
         backgroundColor: 'rgba(0, 153, 51, 0.15)',
         transition: 'background-color 0.3s ease', 
         ':hover': {
