@@ -7,7 +7,7 @@ const TopGenresChart = ({ topArtists: data }) => {
   const [genresState, setGenresState] = useState({});
 console.log("dataaaa",data)
   useEffect(() => {
-    // map over items of data add genre title to the genresShit object and add count as another key
+    // map over items of data add genre title to the genresStuff object and add count as another key
     let updatedGenres = [];
     data.data.items?.map((item) => {
       item.genres.map((genre) => {

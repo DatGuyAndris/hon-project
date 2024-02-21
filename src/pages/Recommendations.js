@@ -20,7 +20,7 @@ export default function Recommendations() {
   const [timeFrame, setTimeFrame] = useState("short_term");
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center w-full">
       <div>access token: {session?.accessToken} </div>
       <Navbar />
       <div className="mt-20">
@@ -33,7 +33,9 @@ export default function Recommendations() {
         Recommendations based on your top artists and songs, probably use short
         term data
       </div>
-      <RecentlyPlayedTracks />
+      <div className="">
+        <RecentlyPlayedTracks />
+      </div>
 
       <div className="mt-20">
         If recently played songs skipped a lot, recommend a different genre

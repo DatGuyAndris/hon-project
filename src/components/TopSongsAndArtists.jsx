@@ -110,7 +110,7 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
             
             
             {myTopArtistData.data.items.map((topArtist, index) => (
-              <div key={"topArtist_" + topArtist.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse scrollbar' >
+              <div key={"topArtist_" + topArtist.id} className=' bg-zinc-900 w-96 h-full m-2 p-2 flex flex-col-reverse scrollbar' >
                 <img className='w-44 h-48 object-cover'
                   src={topArtist.images[0].url}
                   // width="100%"
@@ -127,8 +127,9 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
             <div className='overflow-y-hidden flex h-72 justify-stretch w-full' >
              
               {myTopSongsData.data.items.map((topSong) => (
-                <div key={"topSongs_" + topSong.id} className=' bg-slate-700 w-96 h-full m-2 p-2 flex flex-col-reverse' >
-                  <p className='w-44 h-full'> {topSong.name} - {topSong.artists[0].name} </p>
+                <div key={"topSongs_" + topSong.id} className=' bg-zinc-900 w-96 h-full m-2 p-2 flex flex-col-reverse' >
+                  <p> - {topSong.artists[0].name}  </p>
+                  <p className='w-44 h-full text-l text-slate-100'> {topSong.name} </p> 
                   <img
                   src={topSong.album.images[0].url}
                 // width="100%"
