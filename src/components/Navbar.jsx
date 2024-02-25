@@ -1,6 +1,6 @@
 import React from 'react';
 import OtherPage from '../pages/randomstats';
-import {signIn} from "next-auth/react"
+import {signIn,signOut} from "next-auth/react"
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
 
@@ -15,7 +15,7 @@ const Navbar = () => {
         {/* <div style={styles.brand}>Your Logo</div> */}
       
           
-          {session? ( <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} 
+          {session? ( <button onClick={()=>signOut('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} 
 
          <div className='flex justify-center items-center w-full pl-40'>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 

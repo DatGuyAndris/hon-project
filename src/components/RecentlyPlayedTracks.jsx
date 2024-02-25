@@ -44,11 +44,11 @@ const RecentlyPlayedTracks = () => {
     console.log("recentlyplayed",myRecentSongsData)
   return (
 
-    <main className='w-full'>
+    <main className='w-5/6'>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
       <><div className='mt-20 w-full '>
       <GetRecommendations songs={myRecentSongsData.data.items}/>  </div>
-      <div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} - {recent.track.artists[0].name} </div> )}</div> 
+      {/* <div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} - {recent.track.artists[0].name} </div> )}</div>  */}
        </>
     ) : (null)}
 

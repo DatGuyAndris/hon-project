@@ -23,12 +23,12 @@ export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex flex-col items-center">
-      <div>access token: {session?.accessToken} </div>
+    <main className="flex flex-col w-full items-center sm:w-full">
+      {/* <div>access token: {session?.accessToken} </div> */}
 
       <Navbar />
 
-      <div className="mt-5 w-full">
+      <div className="mt-2 w-full">
         <TimeNavBar setTimeFrame={setTimeFrame} />
       </div>
 

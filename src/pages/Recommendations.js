@@ -23,24 +23,24 @@ export default function Recommendations() {
     <main className="flex flex-col items-center w-full">
       <div>access token: {session?.accessToken} </div>
       <Navbar />
-      <div className="mt-20">
+      <div className="mt-50 w-full flex items-center">
         <GetCurrentSong />
       </div>
 
-      <div> Other things will be here toooo</div>
+      <div className="grid grid-cols-2 w-5/6">
+        <div className="">
+          <RecentlyPlayedTracks />
+        </div>
+        <div className="mt-20">
+          Recommendations based on your top artists and songs, probably use
+          short term data
+        </div>
 
-      <div className="mt-20">
-        Recommendations based on your top artists and songs, probably use short
-        term data
-      </div>
-      <div className="">
-        <RecentlyPlayedTracks />
-      </div>
-
-      <div className="mt-20">
-        If recently played songs skipped a lot, recommend a different genre
-        maybe? If difference from prev song timestamp to next song timestamp
-        less than song duration count as skipped
+        <div className="mt-20">
+          If recently played songs skipped a lot, recommend a different genre
+          maybe? If difference from prev song timestamp to next song timestamp
+          less than song duration count as skipped
+        </div>
       </div>
 
       <div className="mt-20">

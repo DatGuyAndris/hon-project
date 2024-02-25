@@ -98,44 +98,68 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
 
 
 
-    <div className='w-5/6 flex flex-col '>
+    <div className='sm:w-5/6 sm:grid flex flex-col sm:grid-cols-2 mt-2 w-full'>
     {/*Displaying the data from both api calls and a graph of top artist popularity  -- - - - - - - -  */}
 
     {/*  Displaying top artists if there is top artist data     */}
-
+    
     {myTopArtistData && myTopArtistData.data?.items ? (
         <>
-        <p className='text-center text-2xl mt-5 '> Top Artists</p> 
-          <div className="overflow-y-hidden flex h-72 justify-stretch w-full">
-            
+      
+        
+      <p className='text-center col-span-2 text-2xl bg-gradient-to-r from-transparent via-neutral-800'> Top Artists </p>
+          <div className="grid-cols-2 w-full h-screen overflow-y-scroll scrollbar mt-2 pb-96 ">
+             
             
             {myTopArtistData.data.items.map((topArtist, index) => (
-              <div key={"topArtist_" + topArtist.id} className=' bg-zinc-900 w-96 h-full m-2 p-2 flex flex-col-reverse scrollbar' >
-                <img className='w-44 h-48 object-cover'
+              <div key={"topArtist_" + topArtist.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
+                <p className='w-14 h-24 text-2xl align-middle text-center '>{index+1}.</p>
+                
+                
+                <img className='w-24 h-24 object-cover aspect-square'
                   src={topArtist.images[0].url}
                   // width="100%"
                   // height="100%"
                 ></img>
-                <p className='w-44 h-full' >{index+1}.{topArtist.name}</p>
-                
+                <div className='w-full h-full ml-3 '>
+                <p className=' text-2xl h-full ' >{topArtist.name}</p>
+              <div className='flex h-full'>
+                {topArtist.genres.map((topGenres, index) => (
+                <p key={index+100} className='text-sm text-neutral-300 mt-8' > {topGenres + ", "}  </p>))}</div>
+                </div>
               </div>
+            
             ))}
-          </div>
-          <p className='text-center text-2xl mt-5 '> Top Songs</p> 
+            </div>
+          
+          <div className=''> <div >
+         <TopGenresChart topArtists = {myTopArtistData}/>
+        <div className='mt-32 mx-5'><ArtistPopularityChart topArtistsData = {myTopArtistData}/></div></div>
+        </div>
+
+
+
+        <p className='text-center text-2xl mt-5 col-span-2 bg-gradient-to-r from-transparent via-neutral-800'> Top Songs</p> 
     {/*  Displaying top songs if there is top song data     */}
           {myTopSongsData && myTopSongsData.data?.items ? (
-            <div className='overflow-y-hidden flex h-72 justify-stretch w-full' >
+
+            <div className='grid-cols-2 w-full h-screen overflow-y-scroll scrollbar mt-10' >
              
-              {myTopSongsData.data.items.map((topSong) => (
-                <div key={"topSongs_" + topSong.id} className=' bg-zinc-900 w-96 h-full m-2 p-2 flex flex-col-reverse' >
-                  <p> - {topSong.artists[0].name}  </p>
-                  <p className='w-44 h-full text-l text-slate-100'> {topSong.name} </p> 
+              {myTopSongsData.data.items.map((topSong, index2) => (
+                <div key={"topSongs_" + topSong.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
+                  <p className='w-14 h-24 text-2xl align-middle text-center'>{index2+1}.</p>
                   <img
                   src={topSong.album.images[0].url}
                 // width="100%"
                 // height="100%"
-                className='w-full h-full'
+                className='w-24 h-24 object-cover'
                 ></img>
+                <div className='w-full'>
+                <p className='ml-3 w-2/3 h-1/2 text-2xl'> {topSong.name} </p>
+                <p className='ml-3 w-2/3 h-1/2 text-xl' > - {topSong.artists[0].name}  </p>
+                
+                </div>
+                   
                  
                 </div>
               ))}
@@ -181,10 +205,10 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
       ) : null}
 
       {/* If there is topArtistData set export the data to the other pages that use it */}
-      {myTopArtistData? (
+      {/* {myTopArtistData? (
       <div >
-        <TopGenresChart topArtists = {myTopArtistData}/> 
-       <ArtistPopularityChart topArtistsData = {myTopArtistData}/></div> ) : null}
+        <div><TopGenresChart topArtists = {myTopArtistData}/></div> 
+       <ArtistPopularityChart topArtistsData = {myTopArtistData}/></div> ) : null} */}
       </div> 
       
     

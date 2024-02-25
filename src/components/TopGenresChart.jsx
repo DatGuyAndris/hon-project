@@ -30,13 +30,14 @@ console.log("dataaaa",data)
   }, [data]);
 
   return (
-    <div className="w-3/4 h-96 mt-10">
+    <div className="w-full h-96 mt-3 justify-center">
+      <p className="text-center mb-3 text-xl">Your top artist genres</p>
       <ResponsiveContainer>
         <RadarChart cx="50%" cy="50%" outerRadius="90%" data={genresState}>
           <PolarGrid />
           <PolarAngleAxis dataKey="genre" />
           <PolarRadiusAxis />
-          <Radar name="Mike" dataKey="count" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+          <Radar name="Mike" dataKey="count" stroke="#43ff64d9" fill="#004a06" fillOpacity={0.6} />
         </RadarChart>
       </ResponsiveContainer>
     </div>

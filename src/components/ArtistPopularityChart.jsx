@@ -12,8 +12,8 @@ const ArtistPopularityChart = ({topArtistsData}) => {
 
     
   return (
-   <> <div className="h-96 m-5 block"> 
-   Top Artist Popularity
+   <> <div className="h-96 m-5 w-full block"> 
+   <p className='text-center text-xl mb-3'>Top Artist Popularity</p>
         <ResponsiveContainer>
         <BarChart
           
@@ -30,12 +30,12 @@ const ArtistPopularityChart = ({topArtistsData}) => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="10 3" />
           <XAxis dataKey="rank" />
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Bar dataKey="popularity" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+          <Bar dataKey="popularity" fill="#004a06" activeBar={<Rectangle fill="pink" stroke="blue" />} />
 
         </BarChart>
       </ResponsiveContainer> 
@@ -65,7 +65,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           className="rounded-md"
         ></img>
         <p className="label">{`Popularity : ${payload[0].payload.popularity}`}</p>
-        <p className="label">{`Your #${payload[0].payload.rank + 1} Artist`}</p>
+        <p className="label">{`Your #${payload[0].payload.rank } Artist`}</p>
         <p className="desc">Anything you want can be displayed here.</p>
       </div>
     );
