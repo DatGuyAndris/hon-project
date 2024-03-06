@@ -6,6 +6,7 @@ import { PlayIcon,PauseIcon,QueueListIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 
 
+
 const GetRecommendations = ({songs}) => {
 
   const{data:session} = useSession()
@@ -18,7 +19,6 @@ const GetRecommendations = ({songs}) => {
    const seedArtistIds = seedArtists.slice(0,2).join(",")
 
   console.log("seed",seedTrackIds)
-  
 
 
   const {data:recSongsData, status, error} = useQuery({
@@ -49,35 +49,33 @@ const GetRecommendations = ({songs}) => {
         enabled:false,
         refetchOnWindowFocus: false,
         
-
-
-
-
-
-
         queryFn:() => {
-          return axios.post("https://api.spotify.com/v1/me/player/queue", {
+          return axios.put("https://api.spotify.com/v1/me/player/play", {
             params: {
-              uri: "spotify:track:3K47ikyjLxsDVsVngoK00T",
+              uris: [playThisUri],
+              position_ms:0
               
             },
             headers: {
-              Authorization: `Bearer ${session.accessToken}`
+              Authorization: `Bearer ${session.accessToken}`,
+              Content_Type: "application/json"
+            
+              
             }
           })
         }
       })
 
-
-
+  
     console.log("recommended:", recSongsData, status, error)
       console.log("auth", auth)
       console.log("play", playThisUri)
     
 
+
   return (
     <div className='grid-cols-2'> 
-    {recSongsData && recSongsData.data?.tracks ? (
+    {session.accessToken && recSongsData && recSongsData.data?.tracks ? (
       <div className='w-full grid-cols-2 text-neutral-200 py-2'> Recommended
       
         {recSongsData.data?.tracks.map((recSong)=>
@@ -91,8 +89,10 @@ const GetRecommendations = ({songs}) => {
            <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer'>{recSong.artists[0].name}</p></Link>
            
            </div>
-           <div className='w-52 text-right'>  {<QueueListIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri), refetchNewSong()}}/>}</div>
+           <div className='w-52 text-right'> {<QueueListIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri), refetchNewSong()}}/>}</div>
              </div>)}
+
+             
 
       </div> ) : (null)}
     </div>

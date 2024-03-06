@@ -16,6 +16,8 @@ import {
   } from "recharts";
 import TopGenresChart from './TopGenresChart';
 import ArtistPopularityChart from './ArtistPopularityChart';
+import WontUseSongPopularityChart from './WontUseSongPopularityChart';
+import TopSongsAnalysis from './TopSongsAnalysis';
 
 const TopSongsAndArtists = ({timeFrame, session}) => {
 
@@ -63,6 +65,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
     });
 
     // Get song attributes for top songs
+    
     const {
       data:myTopSongsAttributeData,
       refetch: tsa,
@@ -97,7 +100,6 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
   return (
 
 
-
     <div className='sm:w-5/6 sm:grid flex flex-col sm:grid-cols-2 mt-2 w-full'>
     {/*Displaying the data from both api calls and a graph of top artist popularity  -- - - - - - - -  */}
 
@@ -108,7 +110,7 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
       
         
       <p className='text-center col-span-2 text-2xl bg-gradient-to-r from-transparent via-neutral-800'> Top Artists </p>
-          <div className="grid-cols-2 w-full h-screen overflow-y-scroll scrollbar mt-2 pb-96 ">
+          <div className="grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-2 pb-96 ">
              
             
             {myTopArtistData.data.items.map((topArtist, index) => (
@@ -138,12 +140,11 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
         </div>
 
 
-
         <p className='text-center text-2xl mt-5 col-span-2 bg-gradient-to-r from-transparent via-neutral-800'> Top Songs</p> 
     {/*  Displaying top songs if there is top song data     */}
           {myTopSongsData && myTopSongsData.data?.items ? (
 
-            <div className='grid-cols-2 w-full h-screen overflow-y-scroll scrollbar mt-10' >
+            <div className='grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-10' >
              
               {myTopSongsData.data.items.map((topSong, index2) => (
                 <div key={"topSongs_" + topSong.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
@@ -156,59 +157,24 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
                 ></img>
                 <div className='w-full'>
                 <p className='ml-3 w-2/3 h-1/2 text-2xl'> {topSong.name} </p>
-                <p className='ml-3 w-2/3 h-1/2 text-xl' > - {topSong.artists[0].name}  </p>
+                <p className='ml-3 w-2/3 h-1/2 text-xl text-neutral-300' > {topSong.artists[0].name}  </p>
                 
                 </div>
-                   
+                  
                  
                 </div>
               ))}
             </div>
           ) : null}
         
-        
-          {/* The popularity chart  - - -  Commented out cause not needed at the moment*/}
-          {/* <div className="w-full h-96">
-            <ResponsiveContainer>
-              <LineChart
-                //width={1400}
-                //height={400}
-                data={myTopArtistData.data.items.map((topArtist2, index) => ({
-                  name: topArtist2.name,
-                  popularity: topArtist2.popularity,
-                  rank: index,
-                  imgsrc: topArtist2.images[0].url,
-                }))}
-                margin={{
-                  top: 5,
-                  right: 10,
-                  left: 10,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="5 5" />
-                <XAxis dataKey="name" className="text-xs" />
-                <YAxis />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-
-                <Line
-                  type="monotone"
-                  dataKey="popularity"
-                  stroke="#82ca9d"
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div> */}
         </>
       ) : null}
 
-      {/* If there is topArtistData set export the data to the other pages that use it */}
-      {/* {myTopArtistData? (
+      
+      {myTopSongsData && myTopSongsAttributeData? (
       <div >
-        <div><TopGenresChart topArtists = {myTopArtistData}/></div> 
-       <ArtistPopularityChart topArtistsData = {myTopArtistData}/></div> ) : null} */}
+        <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
+       </div> ) : null}
       </div> 
       
     

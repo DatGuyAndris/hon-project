@@ -14,6 +14,7 @@ import TimeNavBar from "../components/TimeNavBar";
 import TopSongsAndArtists from "../components/TopSongsAndArtists";
 import ArtistPopularityChart from "@/components/ArtistPopularityChart";
 import GetRecommendations from "@/components/GetRecommendations";
+import PlayRecommended from "@/components/PlayRecommended";
 
 export default function Recommendations() {
   const { data: session } = useSession();
@@ -23,10 +24,10 @@ export default function Recommendations() {
     <main className="flex flex-col items-center w-full">
       <div>access token: {session?.accessToken} </div>
       <Navbar />
-      <div className="mt-50 w-full flex items-center">
+      {/* <div className="mt-50 w-full flex items-center">
         <GetCurrentSong />
-      </div>
-
+      </div> */}
+      {/* <PlayRecommended /> */}
       <div className="grid grid-cols-2 w-5/6">
         <div className="">
           <RecentlyPlayedTracks />

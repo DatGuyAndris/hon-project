@@ -30,7 +30,7 @@ console.log("dataaaa",data)
   }, [data]);
 
   return (
-    <div className="w-full h-96 mt-3 justify-center">
+    <div className="w-full h-[35vh] mt-3 justify-center">
       <p className="text-center mb-3 text-xl">Your top artist genres</p>
       <ResponsiveContainer>
         <RadarChart cx="50%" cy="50%" outerRadius="90%" data={genresState}>
