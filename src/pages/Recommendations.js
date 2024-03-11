@@ -15,10 +15,12 @@ import TopSongsAndArtists from "../components/TopSongsAndArtists";
 import ArtistPopularityChart from "@/components/ArtistPopularityChart";
 import GetRecommendations from "@/components/GetRecommendations";
 import PlayRecommended from "@/components/PlayRecommended";
+import SpotifyWebPlayer from "react-spotify-web-playback";
 
 export default function Recommendations() {
   const { data: session } = useSession();
   const [timeFrame, setTimeFrame] = useState("short_term");
+  const [playThisUri, setPlayThisUri] = useState();
 
   return (
     <main className="flex flex-col items-center w-full">
@@ -27,11 +29,33 @@ export default function Recommendations() {
       {/* <div className="mt-50 w-full flex items-center">
         <GetCurrentSong />
       </div> */}
-      {/* <PlayRecommended /> */}
+      <div className="w-5/6">
+        {session?.accessToken && playThisUri ? (
+          <div>
+            {" "}
+            <SpotifyWebPlayer
+              token={session.accessToken}
+              uris={playThisUri}
+              play
+              showSaveIcon
+              syncExternalDevice
+              persistDeviceSelection
+              styles={{
+                bgColor: "#3333",
+              }}
+            />{" "}
+          </div>
+        ) : null}
+      </div>
+
       <div className="grid grid-cols-2 w-5/6">
         <div className="">
-          <RecentlyPlayedTracks />
+          <RecentlyPlayedTracks
+            setPlayThisUri={setPlayThisUri}
+            playThisUri={playThisUri}
+          />
         </div>
+
         <div className="mt-20">
           Recommendations based on your top artists and songs, probably use
           short term data

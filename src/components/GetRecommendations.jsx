@@ -4,21 +4,38 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { PlayIcon,PauseIcon,QueueListIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
+import SpotifyWebPlayer from 'react-spotify-web-playback'
+import PlayRecommended from './PlayRecommended'
 
-
-
-const GetRecommendations = ({songs}) => {
+const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
 
   const{data:session} = useSession()
 
   const seedTracks =  songs?.map((song) => song.track.id);
    const seedTrackIds = seedTracks.slice(0,3).join(",")
 
-
    const seedArtists = songs?.map((artist) => artist.track.artists[0].id);
    const seedArtistIds = seedArtists.slice(0,2).join(",")
 
   console.log("seed",seedTrackIds)
+
+  function getAverageThing(array) {
+    // Check if the array is empty or contains only zeros
+    console.log("arrayForPopularity",array)
+    if (array.length === 0 ) {
+        return 0;
+    }
+    return array.reduce((acc, val) => acc + val, 0) / array.length;
+}
+
+const indData = [
+  {
+    attribute: "Popularity", 
+    value: stats.data.audio_features.map((song) => 
+    song.tempo)
+    }]
+
+
 
 
   const {data:recSongsData, status, error} = useQuery({
@@ -42,7 +59,7 @@ const GetRecommendations = ({songs}) => {
       }
     })
 
-    const [playThisUri,setPlayThisUri] = useState()
+    
 
     const {refetch:refetchNewSong, error:auth} = useQuery({
         queryKey:["addToQeuue"],
@@ -53,30 +70,28 @@ const GetRecommendations = ({songs}) => {
           return axios.put("https://api.spotify.com/v1/me/player/play", {
             params: {
               uris: [playThisUri],
-              position_ms:0
-              
             },
             headers: {
               Authorization: `Bearer ${session.accessToken}`,
               Content_Type: "application/json"
-            
-              
             }
           })
         }
       })
-
   
     console.log("recommended:", recSongsData, status, error)
-      console.log("auth", auth)
-      console.log("play", playThisUri)
+      // console.log("auth", auth)
+      // console.log("play", playThisUri)
     
 
-
   return (
+    <div className='flex flex-col'>
+    
     <div className='grid-cols-2'> 
+    
     {session.accessToken && recSongsData && recSongsData.data?.tracks ? (
       <div className='w-full grid-cols-2 text-neutral-200 py-2'> Recommended
+      
       
         {recSongsData.data?.tracks.map((recSong)=>
           <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full'>
@@ -88,14 +103,15 @@ const GetRecommendations = ({songs}) => {
            <p className='text-xl'>{recSong.name} </p>  
            <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer'>{recSong.artists[0].name}</p></Link>
            
+           
            </div>
-           <div className='w-52 text-right'> {<QueueListIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri), refetchNewSong()}}/>}</div>
+           <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri), refetchNewSong()}}/>}</div>
              </div>)}
-
+          
              
 
       </div> ) : (null)}
-    </div>
+    </div></div>
   )
 }
 

@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import GetRecommendations from './GetRecommendations'
 
-const RecentlyPlayedTracks = () => {
+const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
 
   const { data: session } = useSession();
 
@@ -47,7 +47,7 @@ const RecentlyPlayedTracks = () => {
     <main className='w-5/6'>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
       <><div className='mt-20 w-full '>
-      <GetRecommendations songs={myRecentSongsData.data.items}/>  </div>
+      <GetRecommendations songs={myRecentSongsData.data.items} setPlayThisUri={setPlayThisUri} playThisUri ={playThisUri}/>  </div>
       {/* <div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} - {recent.track.artists[0].name} </div> )}</div>  */}
        </>
     ) : (null)}

@@ -71,7 +71,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       refetch: tsa,
       error:atterror
     } = useQuery({
-      queryKey:["myTopSongsAttributeQuery"],
+      queryKey:["myTopSongsAttributeQuery",myTopSongsData],
       enabled:!!session,
       queryFn:() => {
         const topTrackIds = myTopSongsData?.data.items.map((topTrack) => topTrack.id);
@@ -89,9 +89,9 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
 })
 console.log("topSongAttributes", myTopSongsAttributeData,atterror)
   
-    console.log("topArtists", myTopArtistData);
-    console.log("topSongs", myTopSongsData, error);
-    console.log(status);
+     console.log("topArtists", myTopArtistData);
+     console.log("topSongs", myTopSongsData, error);
+    // console.log(status);
   
     useEffect(() => {
       refetch(), ts(), tsa();
@@ -171,7 +171,7 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
       ) : null}
 
       
-      {myTopSongsData && myTopSongsAttributeData? (
+      {myTopSongsData && myTopSongsAttributeData && myTopSongsAttributeData.data?.audio_features.length !=0 ? (
       <div >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
        </div> ) : null}

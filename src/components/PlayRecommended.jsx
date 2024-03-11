@@ -11,18 +11,29 @@ const PlayRecommended = ({playThisUri}) => {
     const{data:session} = useSession()
     const playThisSong = <GetRecommendations playThisUri/>
 
+    console.log("playThisNOWPLS",playThisSong)
+
 
 
   return (
-
-
-    <div> <SpotifyWebPlayer
+    <div className='col-span-2 w-5/6'>
+    {session?.accessToken? (
+    
+    <div > <SpotifyWebPlayer
             
             token={session.accessToken}
-            uris={playThisUri ? [playThisUri] : []}
+            uris={playThisUri}
             showSaveIcon
+            syncExternalDevice
+            persistDeviceSelection
             
-            /> </div>
+            
+            styles = {{
+              bgColor: "#3333"
+            }}
+            /> </div>) : null}
+    
+            </div>
   )
 }
 
