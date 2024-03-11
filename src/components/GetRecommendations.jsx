@@ -28,13 +28,6 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
     return array.reduce((acc, val) => acc + val, 0) / array.length;
 }
 
-const indData = [
-  {
-    attribute: "Popularity", 
-    value: stats.data.audio_features.map((song) => 
-    song.tempo)
-    }]
-
 
 
 
