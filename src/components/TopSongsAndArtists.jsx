@@ -18,6 +18,7 @@ import TopGenresChart from './TopGenresChart';
 import ArtistPopularityChart from './ArtistPopularityChart';
 import WontUseSongPopularityChart from './WontUseSongPopularityChart';
 import TopSongsAnalysis from './TopSongsAnalysis';
+import TopAlbums from './TopAlbums';
 
 const TopSongsAndArtists = ({timeFrame, session}) => {
 
@@ -76,7 +77,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       queryFn:() => {
         const topTrackIds = myTopSongsData?.data.items.map((topTrack) => topTrack.id);
         const topTrackIdsString = topTrackIds?.join(",");
-        console.log("SongAttributes", topTrackIds)
+        // console.log("SongAttributes", topTrackIds)
         return axios.get(`https://api.spotify.com/v1/audio-features`, {
         params: {
           ids: topTrackIdsString,
@@ -161,7 +162,6 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
                 
                 </div>
                   
-                 
                 </div>
               ))}
             </div>
@@ -174,6 +174,7 @@ console.log("topSongAttributes", myTopSongsAttributeData,atterror)
       {myTopSongsData && myTopSongsAttributeData && myTopSongsAttributeData.data?.audio_features.length !=0 ? (
       <div >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
+        <div className='mt-10 bg-red-400'><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
        </div> ) : null}
       </div> 
       

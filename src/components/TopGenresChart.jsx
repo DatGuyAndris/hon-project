@@ -5,7 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 const TopGenresChart = ({ topArtists: data }) => {
   const [genresState, setGenresState] = useState({});
-console.log("dataaaa",data)
+console.log("topGenresOGData",data)
   useEffect(() => {
     // map over items of data add genre title to the genresStuff object and add count as another key
     let updatedGenres = [];

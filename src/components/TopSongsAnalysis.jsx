@@ -67,7 +67,6 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
 
     function getAverageThing(array) {
       // Check if the array is empty or contains only zeros
-      console.log("array",array)
       if (array.length === 0 ) {
           return 0;
       }

@@ -16,6 +16,7 @@ import ArtistPopularityChart from "@/components/ArtistPopularityChart";
 import GetRecommendations from "@/components/GetRecommendations";
 import PlayRecommended from "@/components/PlayRecommended";
 import SpotifyWebPlayer from "react-spotify-web-playback";
+import GetRecommendationsTopSongs from "@/components/GetRecommendationsTopSongs";
 
 export default function Recommendations() {
   const { data: session } = useSession();
@@ -57,6 +58,7 @@ export default function Recommendations() {
         </div>
 
         <div className="mt-20">
+          <GetRecommendationsTopSongs />
           Recommendations based on your top artists and songs, probably use
           short term data
         </div>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+
 import { useSession } from 'next-auth/react'
+import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { PlayIcon,PauseIcon,QueueListIcon } from '@heroicons/react/24/solid'
@@ -10,6 +11,7 @@ import PlayRecommended from './PlayRecommended'
 const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
 
   const{data:session} = useSession()
+  const [avePop, setAvePop] = useState({});
 
   const seedTracks =  songs?.map((song) => song.track.id);
    const seedTrackIds = seedTracks.slice(0,3).join(",")
@@ -19,6 +21,7 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
 
   console.log("seed",seedTrackIds)
 
+  
   function getAverageThing(array) {
     // Check if the array is empty or contains only zeros
     console.log("arrayForPopularity",array)
@@ -26,13 +29,30 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
         return 0;
     }
     return array.reduce((acc, val) => acc + val, 0) / array.length;
-}
+  }
 
 
+const listForPop = [
+  {value: songs?.map((songPop) => songPop.track.popularity)
+   }
+]
+useEffect(() => {
+  const avePops = listForPop.map(item3 => ({
+    value: item3.value,
+    average: getAverageThing(item3.value).toFixed(0)
+}));
+
+setAvePop(avePops);
+}, [])
+
+console.log("allpop", listForPop)
+
+const actualAve = avePop[0]?.average
+console.log("avepop", actualAve)
 
 
   const {data:recSongsData, status, error} = useQuery({
-      queryKey:["recSongsQuery",songs],
+      queryKey:["recSongsQuery",songs,actualAve],
       enabled:!!session,
       refetchOnWindowFocus: false,    
       queryFn:() => {
@@ -41,7 +61,7 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
           params: {
             seed_tracks: seedTrackIds,
             seed_artists: seedArtistIds,
-            max_popularity: 50,
+            max_popularity: actualAve
             
            // seed_genres: "rap"
           },
@@ -54,23 +74,6 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
 
     
 
-    const {refetch:refetchNewSong, error:auth} = useQuery({
-        queryKey:["addToQeuue"],
-        enabled:false,
-        refetchOnWindowFocus: false,
-        
-        queryFn:() => {
-          return axios.put("https://api.spotify.com/v1/me/player/play", {
-            params: {
-              uris: [playThisUri],
-            },
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`,
-              Content_Type: "application/json"
-            }
-          })
-        }
-      })
   
     console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
@@ -98,7 +101,7 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
            
            
            </div>
-           <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri), refetchNewSong()}}/>}</div>
+           <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
              </div>)}
           
              

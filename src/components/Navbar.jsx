@@ -1,5 +1,5 @@
 import React from 'react';
-import OtherPage from '../pages/randomstats';
+import OtherPage from '../pages/Stats';
 import {signIn,signOut} from "next-auth/react"
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
@@ -20,7 +20,7 @@ const Navbar = () => {
          <div className='flex justify-center items-center w-full pl-40'>
           <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
           <Link href="Recommendations"><button style={styles.button}>Recommendations</button> </Link> 
-          <Link href="randomstats"><button style={styles.button}>Random Stats</button> </Link>
+          <Link href="Stats"><button style={styles.button}>Random Stats</button> </Link>
           </div>
            
 
