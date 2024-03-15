@@ -57,11 +57,7 @@ export default function Recommendations() {
           />
         </div>
 
-        <div className="mt-20">
-          <GetRecommendationsTopSongs />
-          Recommendations based on your top artists and songs, probably use
-          short term data
-        </div>
+        <div className="mt-20">{/* <GetRecommendationsTopSongs /> */}</div>
 
         <div className="mt-20">
           If recently played songs skipped a lot, recommend a different genre

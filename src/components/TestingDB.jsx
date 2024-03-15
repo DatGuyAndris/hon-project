@@ -1,33 +1,33 @@
 'use client'
-import React from 'react'
-import prisma from '../lib/prisma';
+import prisma from '@/lib/prisma'
+import React, { useEffect, useState } from 'react';
 
 async function getPost() {
+  const post = await prisma.testmodel.findMany();
+  return post;
+}
 
-    const post = await prisma.testmodel.findMany({
-      where: {
-        published: true,
-      },
+export const TestingDB = () => {
+  const [posts, setPosts] = useState(null);
+
+  useEffect(() => {
+    getPost().then(data => {
+      setPosts(data);
     });
-    return post;
-  }
+  }, []);
 
-export const TestingDB = async () => {
-
-   const posts = await getPost()
-   console.log({posts})
+  if (!posts) return <div>Loading...</div>;
 
   return (
-
-
     <div>
-        {/* {posts?.map((post) => {
-        return (
-          <div key={post.id} className="bg-blue">
-            {post.title}
-          </div>
-        );
-      })} */}
-      </div>
-  )
-}
+      {posts.map((post, index) => (
+        <div key={index}>
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default TestingDB;

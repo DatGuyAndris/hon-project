@@ -92,7 +92,7 @@ console.log("avepop", actualAve)
         {recSongsData.data?.tracks.map((recSong)=>
           <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full'>
             <img
-                src={recSong.album.images[0].url}
+                src={recSong.album.images[0]?.url}
                 className='w-20 h-20'
                 ></img>
                 <div className='w-5/6'>
