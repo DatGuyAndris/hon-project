@@ -13,15 +13,19 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
   const{data:session} = useSession()
   const [avePop, setAvePop] = useState({});
 
+
+
+// making the list of tracks and artists to be used for seeding recommendations
   const seedTracks =  songs?.map((song) => song.track.id);
    const seedTrackIds = seedTracks.slice(0,3).join(",")
 
    const seedArtists = songs?.map((artist) => artist.track.artists[0].id);
    const seedArtistIds = seedArtists.slice(0,2).join(",")
 
-  console.log("seed",seedTrackIds)
+ // console.log("seed",seedTrackIds)
 
   
+ // function to get the average
   function getAverageThing(array) {
     // Check if the array is empty or contains only zeros
     console.log("arrayForPopularity",array)
@@ -45,10 +49,10 @@ useEffect(() => {
 setAvePop(avePops);
 }, [])
 
-console.log("allpop", listForPop)
+//console.log("allpop", listForPop)
 
 const actualAve = avePop[0]?.average
-console.log("avepop", actualAve)
+//console.log("avepop", actualAve)
 
 
   const {data:recSongsData, status, error} = useQuery({
@@ -75,22 +79,23 @@ console.log("avepop", actualAve)
     
 
   
-    console.log("recommended:", recSongsData, status, error)
+    //console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
       // console.log("play", playThisUri)
     
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col '>
     
-    <div className='grid-cols-2'> 
+    <div className='grid-cols-2 '> 
+    <p className='text-xl m-2'> Recommended from recent listening </p>
     
     {session.accessToken && recSongsData && recSongsData.data?.tracks ? (
-      <div className='w-full grid-cols-2 text-neutral-200 py-2'> Recommended
+      <div className='w-full grid-cols-2 text-neutral-200 py-2 h-[80vh] overflow-y-scroll scrollbar '> 
       
       
         {recSongsData.data?.tracks.map((recSong)=>
-          <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full'>
+          <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full '>
             <img
                 src={recSong.album.images[0]?.url}
                 className='w-20 h-20'

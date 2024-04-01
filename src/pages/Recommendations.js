@@ -10,11 +10,6 @@ import GetCurrentSong from "../components/GetCurrentSong";
 import Navbar from "../components/Navbar";
 import Login from "../components/login";
 import { signIn } from "next-auth/react";
-import TimeNavBar from "../components/TimeNavBar";
-import TopSongsAndArtists from "../components/TopSongsAndArtists";
-import ArtistPopularityChart from "@/components/ArtistPopularityChart";
-import GetRecommendations from "@/components/GetRecommendations";
-import PlayRecommended from "@/components/PlayRecommended";
 import SpotifyWebPlayer from "react-spotify-web-playback";
 import GetRecommendationsTopSongs from "@/components/GetRecommendationsTopSongs";
 
@@ -49,15 +44,18 @@ export default function Recommendations() {
         ) : null}
       </div>
 
-      <div className="grid grid-cols-2 w-5/6">
-        <div className="">
-          <RecentlyPlayedTracks
+      <div className="grid grid-cols-2 w-5/6 ">
+        <RecentlyPlayedTracks
+          setPlayThisUri={setPlayThisUri}
+          playThisUri={playThisUri}
+        />
+
+        <div className="mt-20">
+          <GetRecommendationsTopSongs
             setPlayThisUri={setPlayThisUri}
             playThisUri={playThisUri}
           />
         </div>
-
-        <div className="mt-20">{/* <GetRecommendationsTopSongs /> */}</div>
 
         <div className="mt-20">
           If recently played songs skipped a lot, recommend a different genre

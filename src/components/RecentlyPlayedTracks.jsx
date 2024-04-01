@@ -44,7 +44,7 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
     console.log("recentlyplayed",myRecentSongsData)
   return (
 
-    <main className='w-5/6'>
+    <main className='w-5/6 '>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
       <><div className='mt-20 w-full '>
       <GetRecommendations songs={myRecentSongsData.data.items} setPlayThisUri={setPlayThisUri} playThisUri ={playThisUri}/>  </div>

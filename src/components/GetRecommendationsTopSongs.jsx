@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
@@ -10,11 +10,10 @@ import { compare } from 'mathjs'
 
 
 
-const GetRecommendationsTopSongs = () => {
+const GetRecommendationsTopSongs = (setPlayThisUri, playThisUri) => {
 
   const{data:session} = useSession()
   // const [genresList, setGenresList] = useState({});
-
 
   // API call for Top Songs Medium term to be used for recommendations  - - - -- - - - - - - - -- 
   const {
@@ -68,7 +67,7 @@ const GetRecommendationsTopSongs = () => {
 
 
 
-
+    console.log("topsongsforrec",topSongsforRec)
  
   // Api Call for recommendations based on top songs  - - -- - - - - - - -- - - 
   const {data:recSongsDatafromTop} = useQuery({
@@ -78,7 +77,7 @@ const GetRecommendationsTopSongs = () => {
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/recommendations", {
         params: {
-          seed_artists: "JPEGMAFIA",
+          seed_artists: "6fxyWrfmjcbj5d12gXeiNV",
           max_popularity: 50
           
         },
@@ -94,10 +93,12 @@ const GetRecommendationsTopSongs = () => {
 
     <div className='flex flex-col'>
     
-    <div className='grid-cols-2'> 
+    <div className='grid-cols-2 h-[80vh] overflow-y-scroll scrollbar'> 
+    <p className='text-xl m-2'> Recommended from recent listening </p>
     
     {recSongsDatafromTop && recSongsDatafromTop.data.tracks ? (
-      <div className='w-full grid-cols-2 text-neutral-200 py-2'> Recommended from top songs
+      <div className='w-full grid-cols-2 text-neutral-200 py-2'> 
+      
       
       
         {recSongsDatafromTop.data?.tracks.map((recSong)=>
@@ -112,7 +113,7 @@ const GetRecommendationsTopSongs = () => {
            
            
            </div>
-           {/* <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div> */}
+           <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
              </div>)}
           
              

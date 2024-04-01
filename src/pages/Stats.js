@@ -9,14 +9,19 @@ import { useQuery } from "@tanstack/react-query";
 
 import Navbar from "@/components/Navbar";
 import TestingDB from "@/components/TestingDB";
+import LineChartRanks from "@/components/LineChartRanks";
+import GetUsersPlaylists from "@/components/GetUsersPlaylists";
 
 export default function Stats() {
   return (
     <main className="flex flex-col items-center">
       <Navbar />
       <div> Just random stats and graphs here about the users music</div>
-      <div>
+      <div className="w-5/6">
         <TestingDB />
+      </div>
+      <div>
+        <GetUsersPlaylists />
       </div>
     </main>
   );

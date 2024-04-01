@@ -20,6 +20,8 @@ import ArtistPopularityChart from './ArtistPopularityChart';
 const LineChart = ({myTopArtistData}) => {
 
 
+  
+
 
   return (
 

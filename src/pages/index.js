@@ -3,16 +3,9 @@ import Image from "next/image";
 import { Content, Inter } from "next/font/google";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import RecentlyPlayedTracks from "../components/RecentlyPlayedTracks";
-import { useQuery } from "@tanstack/react-query";
-import GetCurrentSong from "../components/GetCurrentSong";
 import Navbar from "../components/Navbar";
-import Login from "../components/login";
-import { signIn } from "next-auth/react";
 import TimeNavBar from "../components/TimeNavBar";
 import TopSongsAndArtists from "../components/TopSongsAndArtists";
-import ArtistPopularityChart from "@/components/ArtistPopularityChart";
 //import { TestingDB } from "./TestingDB";
 
 const inter = Inter({ subsets: ["latin"] });

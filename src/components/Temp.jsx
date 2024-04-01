@@ -4,12 +4,24 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from 'axios';
+import {
+    LineChart,
+    Line,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    ResponsiveContainer,
+    Tooltip,
+    Legend,
+  } from "recharts";
 import TopGenresChart from './TopGenresChart';
 import ArtistPopularityChart from './ArtistPopularityChart';
+import WontUseSongPopularityChart from './WontUseSongPopularityChart';
 import TopSongsAnalysis from './TopSongsAnalysis';
 import TopAlbums from './TopAlbums';
 import { db } from '@/lib/firebase';
 import { addDoc, collection,getDocs,query,where} from 'firebase/firestore';
+import { some } from 'd3';
 
 
 const TopSongsAndArtists = ({timeFrame, session}) => {
@@ -81,25 +93,7 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       })   
  }  
 })
-// gets the users profile details
-const {data:profile} = useQuery({
-  queryKey:["profile"],
-  enabled:!!session,
-  refetchOnWindowFocus: false,    
-  queryFn:() => {
-    return axios.get("https://api.spotify.com/v1/me", {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`
-      }
-    })
-  }
-})
 
-
-console.log("account", profile)
-
-
-// function to calculate week difference
 function calculateWeeks(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -123,45 +117,51 @@ function calculateWeeks(startDate, endDate) {
     useEffect(() => {
       refetch(), ts(), tsa();
     }, [timeFrame]);
-    
-    console.log("dbdata", dbData)
-    useEffect(() => {
-      if (status != "success") return
-        //promise to get the data from the firestore
-      const q = query(collection(db, "ArtistRanking"), where("userId", "==", profile.data.id));
-      const promiseD = getDocs(q);
-      console.log("promise",promiseD)
-      //when the promise is resolved
-     promiseD.then((data) => {
-       // check if the data is empty
-       let datatemp = [promiseD.docs?.forEach((doc) => doc.data())]
-      setDbData(datatemp)
 
-      const dbList = promiseD.docs?.map(doc => doc.data());
-     setDbData(dbList);
-        if (data.empty || calculateWeeks(new Date(), data.docs[0].data().updated.toDate()) > 2) {
-          //map over the top artists and add them to the firestore as an array of objects the objects should include the artist name, popularity, ranking position and updated date
-          const artistRankings = myTopArtistData?.data.items?.slice(0,10).map((artist, index) => {
-          //const artistRankings = myTopArtistData?.data.items?.map((artist, index) => {
-            return {
-              artistName: artist.name,
-              popularity: artist.popularity,
-              rank: index,
-            };
-          }
-          );
-          console.log("arankings",artistRankings)
-          addDoc(artistCollectionRef, {
-            userID: profile.data.id,
-            updated: new Date(),
-            artistRankings
-          });
-        } else {
+    useEffect(() => {
+      console.log("loggindate", calculateWeeks(new Date(), dbData.updated) )
+      if (dbData.length === 0 || calculateWeeks(new Date(), dbData.updated) > 2 || myTopArtistData || myTopArtistData?.data.length != 0 ) {
+          
+        //map over the top artists and add them to the firestore as an array of objects the objects should include the artist name, popularity, ranking position and updated date
+        // const artistRankings = myTopArtistData?.data.items?.slice(0,10).map((artist, index) => {
+        const artistRankings = myTopArtistData.data.items.map((artist, index) => {
+          return {
+            artistName: artist.name,
+            popularity: artist.popularity,
+            rank: index ,
+          };
         }
-     }
-     );
+        );
+        //console.log("arankings",artistRankings)
+        addDoc(artistCollectionRef, {
+          userID: "not",
+          updated: new Date(),
+          artistRankings
+        });
+      } else {
+      }
+    }, [dbData])
+    
+    useEffect(() => {
+      
+      if (status != "success") return
+      //promise to get the data from the firestore
+      const q = query(collection(db, "ArtistRanking"), where("userId", "==", "not"));
+      const promise = getDocs(q);
+      console.log("promise",promise)
+      //when the promise is resolved
+      promise.then((data) => {
+
+        setDbData(data.docs.map((doc) => doc.data()));
+        //check if the data is empty
+        const something = data.docs[0]?.data()
+        console.log("timestamp", something )
+        
+      }
+      );
 
     }, [status]);
+
 
 
 
@@ -244,7 +244,12 @@ function calculateWeeks(startDate, endDate) {
       <div >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
         <div className='mt-10 bg-red-400'><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
+
        </div> ) : null}
+
+       {dbData.map((currentItem) => {return (
+        <div> aa </div>
+       ) })}
       </div> 
       
     

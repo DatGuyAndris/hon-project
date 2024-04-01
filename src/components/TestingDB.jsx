@@ -1,31 +1,71 @@
 'use client'
-import prisma from '@/lib/prisma'
-import React, { useEffect, useState } from 'react';
 
-async function getPost() {
-  const post = await prisma.testmodel.findMany();
-  return post;
-}
+import { db } from '@/lib/firebase';
+import { addDoc, collection,getDocs, deleteDoc} from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import LineChartRanks from './LineChartRanks';
+
+
 
 export const TestingDB = () => {
-  const [posts, setPosts] = useState(null);
+  
+const TestCollectionRef = collection(db,"ArtistRankings")
 
-  useEffect(() => {
-    getPost().then(data => {
-      setPosts(data);
-    });
-  }, []);
+const [dbStat, setDBStat] = useState([])
 
-  if (!posts) return <div>Loading...</div>;
+const  [name, setName] = useState()
+
+useEffect(() => {
+  const getTest = async () => {
+    //const q = await getDocs(TestCollectionRef);
+    
+    //setName(q.docs)
+    await getDocs(TestCollectionRef)
+    .then((snapshot)=>{               
+        const newData = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id })).sort((a, b) => a.updated - b.updated);
+
+        setName(newData);             
+    })
+  }; 
+  getTest();
+}, []);
+
+console.log("q",name)
+
+const handleSave = async () => {
+
+  const newData = await addDoc(collection(db,"test"), {
+    age: 5423,
+    name :"aaami",
+    field: "mud",
+    sky:"glue"
+
+  })
+
+
+  console.log("newdata",newData.id)
+}
+
+const deleteAll = async () => {
+
+  const snapshot = await getDocs(TestCollectionRef);
+  snapshot.forEach((doc) => {
+    deleteDoc(doc.ref);
+  });
+};
+
 
   return (
     <div>
-      {posts.map((post, index) => (
-        <div key={index}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-        </div>
-      ))}
+      ayyy
+      <button className='p-4 bg-green-400' onClick={handleSave}> Save </button>
+      <button className='p-4 bg-red-700' onClick={deleteAll}> DELETE </button>
+      {/* {name?.map((stat) => {
+              console.log("stat", stat)
+              return(<div> {stat.updated} </div>)
+            })} */}
+            {name? (<LineChartRanks dbDataforGraph={name}/>) : null}
+            
     </div>
   );
 };
