@@ -44,32 +44,6 @@ console.log("coubt",countAlbums);
       
     }, [topSongsAlbums])
 
-    const data = [
-      {
-        name: 'axis',
-        children: [
-          { name: 'Axes', size: 1302 },
-          { name: 'Axis', size: 24593 },
-          { name: 'AxisGridLine', size: 652 },
-          { name: 'AxisLabel', size: 636 },
-          { name: 'CartesianAxes', size: 6703 },
-        ],
-      },
-      {
-        name: 'controls',
-        children: [
-          { name: 'AnchorControl', size: 2138 },
-          { name: 'ClickControl', size: 3824 },
-          { name: 'Control', size: 1353 },
-          { name: 'ControlList', size: 4665 },
-          { name: 'DragControl', size: 2649 },
-          { name: 'ExpandControl', size: 2832 },
-          { name: 'HoverControl', size: 4896 },
-          { name: 'IControl', size: 763 },
-          { name: 'PanZoomControl', size: 5222 },
-          { name: 'SelectionControl', size: 7862 },
-          { name: 'TooltipControl', size: 8435 },
-        ]}]
     
 
   return (

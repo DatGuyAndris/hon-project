@@ -94,7 +94,7 @@ const GetRecommendationsTopSongs = (setPlayThisUri, playThisUri) => {
     <div className='flex flex-col'>
     
     <div className='grid-cols-2 h-[80vh] overflow-y-scroll scrollbar'> 
-    <p className='text-xl m-2'> Recommended from recent listening </p>
+    <p className='text-xl m-2'> Recommended from your top songs </p>
     
     {recSongsDatafromTop && recSongsDatafromTop.data.tracks ? (
       <div className='w-full grid-cols-2 text-neutral-200 py-2'> 

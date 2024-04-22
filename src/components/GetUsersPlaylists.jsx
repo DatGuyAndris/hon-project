@@ -14,6 +14,8 @@ import { addDoc, collection,getDocs,query,where} from 'firebase/firestore';
 
 const GetUsersPlaylists = () => {
 
+
+
     const{data:session} = useSession()
     const {data:playlists} = useQuery({
         queryKey:["playlists"],
@@ -31,10 +33,29 @@ const GetUsersPlaylists = () => {
 
       console.log("***",playlists)
 
+      const noOfPlaylists = playlists?.data.items.length
+
+      
+          
+        
+      
+    
+
+
+
+      
+
   return (
 
 
-    <div>GetUsersPlaylists</div>
+    <div className='text-3xl'>
+      <div> You have {noOfPlaylists} playlists</div>
+
+      
+      
+    
+    
+    </div>
   )
 }
 
