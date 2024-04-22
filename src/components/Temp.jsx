@@ -247,9 +247,7 @@ function calculateWeeks(startDate, endDate) {
 
        </div> ) : null}
 
-       {dbData.map((currentItem) => {return (
-        <div> aa </div>
-       ) })}
+      
       </div> 
       
     

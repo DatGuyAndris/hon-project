@@ -17,7 +17,7 @@ import {
 import TopGenresChart from './TopGenresChart';
 import ArtistPopularityChart from './ArtistPopularityChart';
 
-const LineChart = ({myTopArtistData}) => {
+const LineChart2 = ({myTopArtistData}) => {
 
 
   
