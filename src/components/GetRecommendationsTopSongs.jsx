@@ -7,6 +7,7 @@ import { PlayIcon,PauseIcon,QueueListIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { interpolateNumberArray } from 'd3'
 import { compare } from 'mathjs'
+import validgenre from '../lib/realgenrelist.json' 
 
 
 
@@ -58,26 +59,50 @@ const GetRecommendationsTopSongs = (setPlayThisUri, playThisUri) => {
       });
     });
     // Sorts the list of genres by count and makes a new list of the top 2 
-    const listedGenres =  updatedGenres?.sort((a,b) => b.count - a.count)
-    const genresToPreUse = listedGenres.map((genre) => genre.genre)
-    const genresToUse = genresToPreUse.slice(0,2).join(",")
+    const changeSpaces = updatedGenres.map((genre) => {
+      return genre.genre.replace(/\s/g, "-");
+    });
+
+    const genresToUse =  changeSpaces
+    .sort((a,b) => b.count - a.count)
+    .map((genre) => {
+      const matchingGenre = validgenre.realgenres.find((jsonGenre) => genre.includes(jsonGenre));
+      return matchingGenre ? matchingGenre : null;
+    })
+    .filter((genre, index, self) => self.indexOf(genre) === index && genre!== null).join(",")
+    // .filter((genre) => {
+    //   let genreExists = false;
+    //   validgenre.realgenres.map((jsonGenre) => {
+    //     if (genre.includes(jsonGenre)) {
+    //       genreExists = true;
+    //     }
+    //   });
+    //   return genreExists;
+    // }
+    // );
+
+    
+    //const genresToUse = listedGenres.map((genre) => genre.genre)
+    
 
   // console.log("genreslist" , listedGenres)
-  // console.log("genrestouse", genresToUse)
+   console.log("genrestouse", genresToUse)
+   //console.log("aa", validgenre)
+   console.log("updated", updatedGenres)
 
 
 
-    console.log("topsongsforrec",topSongsforRec)
+    //console.log("topsongsforrec",topSongsforRec)
  
   // Api Call for recommendations based on top songs  - - -- - - - - - - -- - - 
-  const {data:recSongsDatafromTop} = useQuery({
-    queryKey:["recSongsQuery2"],
-    enabled:!!session,
+  const {data:recSongsDatafromTop,error:genreserr} = useQuery({
+    queryKey:["recSongsQuery2",genresToUse],
+    enabled:!!session && !!genresToUse,
     refetchOnWindowFocus: false,    
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/recommendations", {
         params: {
-          seed_artists: "6fxyWrfmjcbj5d12gXeiNV",
+          seed_genres: genresToUse,
           max_popularity: 50
           
         },
@@ -87,7 +112,7 @@ const GetRecommendationsTopSongs = (setPlayThisUri, playThisUri) => {
       })
     }
   })
-
+  console.log("errr", genreserr)
   console.log("recsongsFromTop",recSongsDatafromTop)
   return (
 
