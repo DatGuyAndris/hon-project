@@ -11,7 +11,7 @@ import validgenre from '../lib/realgenrelist.json'
 
 
 
-const GetRecommendationsTopSongs = (setPlayThisUri, playThisUri) => {
+const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
 
   const{data:session} = useSession()
   // const [genresList, setGenresList] = useState({});

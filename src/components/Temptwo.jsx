@@ -96,9 +96,10 @@ const {data:profile} = useQuery({
 })
 
 
-//console.log("account", profile)
+console.log("account", profile)
 
 
+// function to calculate week difference
 function calculateWeeks(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -108,61 +109,65 @@ function calculateWeeks(startDate, endDate) {
   }
 
   const timeDifference = Math.abs(end - start);
-  // Convert milliseconds to weeks
-  const weeksDifference = timeDifference / (1000 * 60 * 60 * 24 * 7);
-  return weeksDifference > 2;
+  const weeks = Math.ceil(timeDifference / (1000 * 60 * 60 * 24 * 7));
+
+  return weeks;
+  
 }
 
 // console.log("topSongAttributes", myTopSongsAttributeData,atterror)
   
-     // console.log("topArtists", myTopArtistData,status);
+      console.log("topArtists", myTopArtistData,status);
 //      console.log("topSongs", myTopSongsData, error);
 //     // console.log(status);
+
 
   
     useEffect(() => {
       refetch(), ts(), tsa();
     }, [timeFrame]);
     
-
-
     console.log("dbdata", dbData)
-
-
     useEffect(() => {
-  if (status !== "success") return;
+      if (status != "success") return
+      const getUserFirebaseData = async () => {
 
-  const getTest = async () => {
-    const snapshot = await getDocs(query(artistCollectionRef, where("userID", "==", profile.data.id), orderBy("updated", "desc")));
-    const newData = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-
-    console.log("adsdasdsd", newData);
-    setDbData(newData);
-
-    if (newData.length === 0 || calculateWeeks(new Date(), newData[0]?.updated.toDate())) {
-      addToFB();
+        //promise to get the data from the firestore
+        const q = query(collection(db, "ArtistRanking"), where("userID", "==", profile.data.id)); //orderBy("updated","desc")
+        await getDocs(q).then((snapshot)=>{  
+        console.log("snapshot",snapshot.docs)             
+        const newData = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id })).sort((a, b) => a.updated - b.updated);
+        
+        setDbData(newData);             
+        
+        
+        //console.log("imweak",new Date(), data.docs[0].data().updated.toDate())
+        console.log("adsdasdsd",dbData)
+        if (dbData.length <= 0 || calculateWeeks(new Date(), dbData.updated.toDate()) > 2) {
+          //map over the top artists and add them to the firestore as an array of objects the objects should include the artist name, popularity, ranking position and updated date
+          const artistRankings = myTopArtistData?.data.items?.slice(0,10).map((artist, index) => {
+            //const artistRankings = myTopArtistData?.data.items?.map((artist, index) => {
+              return {
+                artistName: artist.name,
+                popularity: artist.popularity,
+                rank: index + 1,
+              };
+            }
+          );
+          console.log("arankings",artistRankings)
+          // addDoc(artistCollectionRef, {
+            //   userID: profile.data.id,
+            //   updated: new Date(),
+            //     artistRankings
+            //   });
+          } else {
+          }
+        }
+      );
+      
     }
-  };
-
-  const addToFB = () => {
-    const artistRankings = myTopArtistData?.data.items?.slice(0, 10).map((artist, index) => {
-      return {
-        artistName: artist.name,
-        popularity: artist.popularity,
-        rank: index + 1,
-      };
-    });
-
-    console.log("added to db");
-    addDoc(artistCollectionRef, {
-      userID: profile.data.id,
-      updated: new Date(),
-      artistRankings
-    });
-  };
-
-  getTest();
-}, [status]);
+    getUserFirebaseData()
+    }, [status]);
     
   
   
@@ -241,9 +246,9 @@ function calculateWeeks(startDate, endDate) {
 
       
       {myTopSongsData && myTopSongsAttributeData && myTopSongsAttributeData.data?.audio_features.length !=0 ? (
-      <div className='' >
+      <div >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
-        <div className='mt-10 '><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
+        <div className='mt-10 bg-red-400'><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
        </div> ) : null}
       </div> 
       

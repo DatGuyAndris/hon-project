@@ -1,5 +1,5 @@
 import React , { PureComponent } from 'react'
-import { Treemap, ResponsiveContainer } from 'recharts';
+import { Treemap, Cell,ResponsiveContainer, Tooltip } from 'recharts';
 import TopSongsAndArtists from './TopSongsAndArtists'
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -13,57 +13,80 @@ const TopAlbums = ({topSongsAlbums}) => {
     console.log("topalbums", topSongsAlbums)
 
     useEffect(() => {
-
-       const songslist = [
-            {
-                songTitle: topSongsAlbums?.data.items.map((song) => song.name),
-                albumTitle: topSongsAlbums?.data.items.map((song) => song.album.name),
-                albumImage: topSongsAlbums?.data.items.map((song) => song.album.images[0].url)
-            }    
-        ]
-
-        const albumTitles = songslist[0].albumImage;
-
-// Count occurrences of each album title
-        const albumTitleCounts = {};
-        albumTitles.forEach(title => {
-        albumTitleCounts[title] = (albumTitleCounts[title] || 0) + 1;
-});
-
-const albumTitleCountsArray = Object.entries(albumTitleCounts).map(([title, count]) => ({
-  title,
-  count
-}));
-
-console.log(albumTitleCountsArray);
-
-setCountAlbums(albumTitleCountsArray)
-// Output the counts
-console.log("coubt",countAlbums);
-
-      
-    }, [topSongsAlbums])
+      if (topSongsAlbums && topSongsAlbums.data && topSongsAlbums.data.items) {
+        const albumTitles = topSongsAlbums.data.items.map(song => song.album.name);
+  
+        // Count occurrences of each album title
+        const albumTitleCounts = albumTitles.reduce((acc, title) => {
+          acc[title] = (acc[title] || 0) + 1;
+          return acc;
+        }, {});
+  
+        const albumTitleCountsArray = Object.entries(albumTitleCounts).map(([name, size]) => {
+          const image = topSongsAlbums.data.items.find(song => song.album.name === name)?.album.images[0]?.url;
+          return {
+            name: name + " - " + size + " Song(s)  ",
+            size,
+            image
+          };
+        });
+  
+        setCountAlbums(albumTitleCountsArray);
+      }
+    }, [topSongsAlbums]);
 
     
-
+    console.log("easdas", countAlbums)
   return (
 
 
         
-    <div>
+        
+    <div className="h-96 w-full mt-20 block items-center">
+    <p>Most common albums</p>
+       <ResponsiveContainer>
+       <Treemap
        
-        <Treemap width={400}
-         height={200} 
-         data={countAlbums} 
-         dataKey="count"
-          aspectRatio={4 / 3} 
-          stroke="#fff" 
-          fill="title" />
+        data={countAlbums} 
+        dataKey="size"
+        aspectRatio={16 / 4}
+        stroke="#fff"
+        fill="#004a06">
+        <Tooltip content={<CustomTooltip />}/>
+        <Cell
+                        fill={(entry) => entry.payload.image}
+                        stroke="#fff"
+                    />
+        </Treemap>
+       
+        
       
-      
+      </ResponsiveContainer>
   
   </div>
   )
 }
 
 export default TopAlbums
+
+
+const CustomTooltip = ({ active, payload, label }) => {
+  console.log("payload", payload)
+  if (active && payload && payload.length) {
+    return (
+      <div className="treemap-custom-tooltip bg-slate-300 rounded-md text-black p-2 w-max flex flex-row">
+        
+        <img
+          src={payload[0].payload.image}
+          width="30%"
+          height="30%"
+          className="rounded-md"
+        ></img>
+        <p>{`${payload[0].payload.name}`}</p>
+        {/* <p>{`${payload[0].payload.name} : ${payload[0].value}`}</p> */}
+      </div>
+    );
+  }
+
+  return null;
+};

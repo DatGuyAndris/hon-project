@@ -1,7 +1,7 @@
 'use client'
 
 import { db } from '@/lib/firebase';
-import { addDoc, collection,getDocs, deleteDoc} from 'firebase/firestore';
+import { addDoc, collection,getDocs, deleteDoc, where, query} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import LineChartRanks from './LineChartRanks';
 
@@ -13,14 +13,15 @@ const TestCollectionRef = collection(db,"ArtistRankings")
 
 const [dbStat, setDBStat] = useState([])
 
-const  [name, setName] = useState()
+const  [name, setName] = useState([])
+
 
 useEffect(() => {
   const getTest = async () => {
     //const q = await getDocs(TestCollectionRef);
     
     //setName(q.docs)
-    await getDocs(TestCollectionRef)
+    await getDocs(query(TestCollectionRef, where("userID", "==", "datguyandris")))
     .then((snapshot)=>{               
         const newData = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id })).sort((a, b) => a.updated - b.updated);
 
@@ -54,7 +55,7 @@ const deleteAll = async () => {
   });
 };
 
-
+console.log("name",name)
   return (
     <div>
       ayyy
@@ -64,7 +65,7 @@ const deleteAll = async () => {
               console.log("stat", stat)
               return(<div> {stat.updated} </div>)
             })} */}
-            {name? (<LineChartRanks dbDataforGraph={name}/>) : null}
+            {name?.length > 0 ?  (<LineChartRanks dbDataforGraph={name}/>) : <p>No data for you</p>}
             
     </div>
   );

@@ -28,18 +28,6 @@ export default function Home() {
       {session?.accessToken ? (
         <TopSongsAndArtists session={session} timeFrame={timeFrame} />
       ) : null}
-
-      {/* <div className="mt-20">
-        <RecentlyPlayedTracks />
-      </div> */}
-
-      {/* <div className="mt-20">
-        <GetCurrentSong />
-      </div> */}
-
-      {/* <ArtistPopularityChart /> */}
-
-      {/* <TestingDB  /> */}
     </main>
   );
 }

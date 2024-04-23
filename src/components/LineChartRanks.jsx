@@ -21,7 +21,7 @@ console.log("fulldb", dbDataforGraph.map((stat) => {
     return {
       name: artist.artistName,
       popularity: artist.popularity,
-      rank: artist.rank + 1,
+      rank: artist.rank,
       date: new Date(stat.updated.seconds * 1000).toLocaleDateString() // Convert date to localized string
     };
   });
