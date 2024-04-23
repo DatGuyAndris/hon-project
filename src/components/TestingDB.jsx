@@ -58,9 +58,9 @@ const deleteAll = async () => {
 console.log("name",name)
   return (
     <div>
-      ayyy
+      {/* ayyy
       <button className='p-4 bg-green-400' onClick={handleSave}> Save </button>
-      <button className='p-4 bg-red-700' onClick={deleteAll}> DELETE </button>
+      <button className='p-4 bg-red-700' onClick={deleteAll}> DELETE </button> */}
       {/* {name?.map((stat) => {
               console.log("stat", stat)
               return(<div> {stat.updated} </div>)

@@ -16,7 +16,7 @@ const TopAlbums = ({topSongsAlbums}) => {
       if (topSongsAlbums && topSongsAlbums.data && topSongsAlbums.data.items) {
         const albumTitles = topSongsAlbums.data.items.map(song => song.album.name);
   
-        // Count occurrences of each album title
+        
         const albumTitleCounts = albumTitles.reduce((acc, title) => {
           acc[title] = (acc[title] || 0) + 1;
           return acc;
