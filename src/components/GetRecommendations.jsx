@@ -13,8 +13,6 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
   const{data:session} = useSession()
   const [avePop, setAvePop] = useState({});
 
-
-
 // making the list of tracks and artists to be used for seeding recommendations
   const seedTracks =  songs?.map((song) => song.track.id);
    const seedTrackIds = seedTracks.slice(0,3).join(",")
@@ -52,7 +50,7 @@ setAvePop(avePops);
 //console.log("allpop", listForPop)
 
 const actualAve = avePop[0]?.average
-//console.log("avepop", actualAve)
+console.log("avepop", actualAve)
 
 
   const {data:recSongsData, status, error} = useQuery({
@@ -60,14 +58,11 @@ const actualAve = avePop[0]?.average
       enabled:!!session,
       refetchOnWindowFocus: false,    
       queryFn:() => {
-        const seedsongs = ""
         return axios.get("https://api.spotify.com/v1/recommendations", {
           params: {
             seed_tracks: seedTrackIds,
             seed_artists: seedArtistIds,
             max_popularity: actualAve
-            
-           // seed_genres: "rap"
           },
           headers: {
             Authorization: `Bearer ${session.accessToken}`
@@ -75,15 +70,11 @@ const actualAve = avePop[0]?.average
         })
       }
     })
-
-    
-
   
     //console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
       // console.log("play", playThisUri)
     
-
   return (
     <div className='flex flex-col '>
     

@@ -106,10 +106,6 @@ function calculateWeeks(startDate, endDate) {
     useEffect(() => {
       refetch(), ts(), tsa();
     }, [timeFrame]);
-    
-
-
-    console.log("session", session)
 
 
     useEffect(() => {
@@ -119,7 +115,7 @@ function calculateWeeks(startDate, endDate) {
     const snapshot = await getDocs(query(artistCollectionRef, where("userID", "==", session.user.email), orderBy("updated", "desc")));
     const newData = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-    console.log("adsdasdsd", newData);
+    //console.log("adsdasdsd", newData);
     setDbData(newData);
 
     if (newData.length === 0 || calculateWeeks(new Date(), newData[0]?.updated.toDate())) {
@@ -136,7 +132,6 @@ function calculateWeeks(startDate, endDate) {
       };
     });
 
-    console.log("added to db");
     addDoc(artistCollectionRef, {
       userID: session.user.email,
       updated: new Date(),

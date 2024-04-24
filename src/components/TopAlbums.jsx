@@ -10,7 +10,7 @@ const TopAlbums = ({topSongsAlbums}) => {
 
     const [countAlbums, setCountAlbums] = useState({})
 
-    console.log("topalbums", topSongsAlbums)
+    //console.log("topalbums", topSongsAlbums)
 
     useEffect(() => {
       if (topSongsAlbums && topSongsAlbums.data && topSongsAlbums.data.items) {
@@ -36,7 +36,7 @@ const TopAlbums = ({topSongsAlbums}) => {
     }, [topSongsAlbums]);
 
     
-    console.log("easdas", countAlbums)
+    //console.log("easdas", countAlbums)
   return (
 
 

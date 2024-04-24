@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { interpolateNumberArray } from 'd3'
 import { compare } from 'mathjs'
 import validgenre from '../lib/realgenrelist.json' 
+import { list } from "postcss";
 
 
 
@@ -37,9 +38,21 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     },
   });
 
+  // function to get the average
+  function getAverageThing(array) {
+    // Check if the array is empty or contains only zeros
+    console.log("arrayForPopularity",array)
+    if (array?.length === 0 ) {
+        return 0;
+    }
+    return array?.reduce((acc, val) => acc + val, 0) / array?.length;
+  }
 
+  const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
+  const averagePopularity = getAverageThing(listPopularity).toFixed(0)
+  console.log("averagepopul",averagePopularity)
 
-  // console.log("topSongsForRec",topSongsforRec)
+ //console.log("topSongsForRec",topSongsforRec)
 
   // Gets the genres from the top songs, lists and counts them 
   let updatedGenres = [];
@@ -58,7 +71,6 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
         }
       });
     });
-    // Sorts the list of genres by count and makes a new list of the top 2 
     const changeSpaces = updatedGenres.map((genre) => {
       return genre.genre.replace(/\s/g, "-");
     });
@@ -70,20 +82,6 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       return matchingGenre ? matchingGenre : null;
     })
     .filter((genre, index, self) => self.indexOf(genre) === index && genre!== null).join(",")
-    // .filter((genre) => {
-    //   let genreExists = false;
-    //   validgenre.realgenres.map((jsonGenre) => {
-    //     if (genre.includes(jsonGenre)) {
-    //       genreExists = true;
-    //     }
-    //   });
-    //   return genreExists;
-    // }
-    // );
-
-    
-    //const genresToUse = listedGenres.map((genre) => genre.genre)
-    
 
   // console.log("genreslist" , listedGenres)
    console.log("genrestouse", genresToUse)
@@ -97,13 +95,13 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
   // Api Call for recommendations based on top songs  - - -- - - - - - - -- - - 
   const {data:recSongsDatafromTop,error:genreserr} = useQuery({
     queryKey:["recSongsQuery2",genresToUse],
-    enabled:!!session && !!genresToUse,
+    enabled:!!session && !!genresToUse && !!averagePopularity,
     refetchOnWindowFocus: false,    
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/recommendations", {
         params: {
           seed_genres: genresToUse,
-          max_popularity: 50
+          max_popularity: averagePopularity
           
         },
         headers: {
@@ -116,16 +114,14 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
   console.log("recsongsFromTop",recSongsDatafromTop)
   return (
 
+
+
     <div className='flex flex-col'>
-    
     <div className='grid-cols-2 h-[80vh] overflow-y-scroll scrollbar'> 
     <p className='text-xl m-2'> Recommended from your top songs </p>
-    
+
     {recSongsDatafromTop && recSongsDatafromTop.data.tracks ? (
       <div className='w-full grid-cols-2 text-neutral-200 py-2'> 
-      
-      
-      
         {recSongsDatafromTop.data?.tracks.map((recSong)=>
           <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full'>
             <img
@@ -135,14 +131,10 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
                 <div className='w-5/6'>
            <p className='text-xl'>{recSong.name} </p>  
            <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer'>{recSong.artists[0].name}</p></Link>
-           
-           
            </div>
            <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
              </div>)}
           
-             
-
       </div> ) : (null)}
     </div></div>
 

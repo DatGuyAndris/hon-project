@@ -22,7 +22,6 @@ export default function Recommendations() {
     <>
       {session ? (
         <main className="flex flex-col items-center w-full">
-          <div>access token: {session?.accessToken} </div>
           <Navbar />
           {/* <div className="mt-50 w-full flex items-center">
         <GetCurrentSong />

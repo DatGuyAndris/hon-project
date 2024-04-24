@@ -5,7 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 const TopGenresChart = ({ topArtists: data }) => {
   const [genresState, setGenresState] = useState({});
-console.log("topGenresOGData",data)
+//console.log("topGenresOGData",data)
 useEffect(() => {
   let updatedGenres = [];
   data.data.items?.map((item) => {
@@ -27,7 +27,7 @@ useEffect(() => {
   const topGenres = updatedGenres.slice(0,10);
   setGenresState(topGenres);
 }, [data]);
-  console.log("gsss",genresState)
+ // console.log("gsss",genresState)
 
   return (
     <div className="w-full h-[35vh] mt-3 justify-center">
