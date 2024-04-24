@@ -6,28 +6,28 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 const TopGenresChart = ({ topArtists: data }) => {
   const [genresState, setGenresState] = useState({});
 console.log("topGenresOGData",data)
-  useEffect(() => {
-    // map over items of data add genre title to the genresStuff object and add count as another key
-    let updatedGenres = [];
-    data.data.items?.map((item) => {
-      item.genres.map((genre) => {
-        
-      
-        let genreExists = false;
-        updatedGenres.map((genreStuff) => {
-          if (genreStuff.genre === genre) {
-            genreExists = true;
-            genreStuff.count++;
-          }
-        });
-        if (!genreExists && updatedGenres.length < 10) {
-          updatedGenres.push({ genre: genre, count: 1 });
+useEffect(() => {
+  let updatedGenres = [];
+  data.data.items?.map((item) => {
+    item.genres.map((genre) => {
+      let genreExists = false;
+      updatedGenres.map((genreStuff) => {
+        if (genreStuff.genre === genre) {
+          genreExists = true;
+          genreStuff.count++;
         }
       });
+      if (!genreExists) {
+        updatedGenres.push({ genre: genre, count: 1 });
+      }
     });
+  });
 
-    setGenresState(updatedGenres);
-  }, [data]);
+  updatedGenres.sort((a, b) => b.count - a.count);
+  const topGenres = updatedGenres.slice(0,10);
+  setGenresState(topGenres);
+}, [data]);
+  console.log("gsss",genresState)
 
   return (
     <div className="w-full h-[35vh] mt-3 justify-center">

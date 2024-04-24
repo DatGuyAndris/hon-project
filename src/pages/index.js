@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import TimeNavBar from "../components/TimeNavBar";
 import TopSongsAndArtists from "../components/TopSongsAndArtists";
+import Loginplease from "@/components/Loginplease";
 //import { TestingDB } from "./TestingDB";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,18 +17,24 @@ export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex flex-col w-full items-center sm:w-full">
-      {/* <div>access token: {session?.accessToken} </div> */}
+    <>
+      {session ? (
+        <main className="flex flex-col w-full items-center sm:w-full">
+          {/* <div>access token: {session?.accessToken} </div> */}
 
-      <Navbar />
+          <Navbar />
 
-      <div className="mt-2 w-full">
-        <TimeNavBar setTimeFrame={setTimeFrame} />
-      </div>
+          <div className="mt-2 w-full">
+            <TimeNavBar setTimeFrame={setTimeFrame} />
+          </div>
 
-      {session?.accessToken ? (
-        <TopSongsAndArtists session={session} timeFrame={timeFrame} />
-      ) : null}
-    </main>
+          {session?.accessToken ? (
+            <TopSongsAndArtists session={session} timeFrame={timeFrame} />
+          ) : null}
+        </main>
+      ) : (
+        <Loginplease />
+      )}
+    </>
   );
 }

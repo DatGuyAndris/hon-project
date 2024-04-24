@@ -15,7 +15,6 @@ import { addDoc, collection,getDocs,orderBy,query,where} from 'firebase/firestor
 const TopSongsAndArtists = ({timeFrame, session}) => {
 
   const [dbData, setDbData] = useState([])
-
   const artistCollectionRef = collection(db, "ArtistRankings")
   
   // Top Artists API call, sets timeFrame from TimeNavBar
@@ -81,24 +80,8 @@ const TopSongsAndArtists = ({timeFrame, session}) => {
       })   
  }  
 })
-// gets the users profile details
-const {data:profile} = useQuery({
-  queryKey:["profile"],
-  enabled:!!session,
-  refetchOnWindowFocus: false,    
-  queryFn:() => {
-    return axios.get("https://api.spotify.com/v1/me", {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`
-      }
-    })
-  }
-})
 
-
-//console.log("account", profile)
-
-
+// Function to calculate 2 weeks difference
 function calculateWeeks(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -126,14 +109,14 @@ function calculateWeeks(startDate, endDate) {
     
 
 
-    console.log("dbdata", dbData)
+    console.log("session", session)
 
 
     useEffect(() => {
   if (status !== "success") return;
 
   const getTest = async () => {
-    const snapshot = await getDocs(query(artistCollectionRef, where("userID", "==", profile.data.id), orderBy("updated", "desc")));
+    const snapshot = await getDocs(query(artistCollectionRef, where("userID", "==", session.user.email), orderBy("updated", "desc")));
     const newData = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
     console.log("adsdasdsd", newData);
@@ -155,7 +138,7 @@ function calculateWeeks(startDate, endDate) {
 
     console.log("added to db");
     addDoc(artistCollectionRef, {
-      userID: profile.data.id,
+      userID: session.user.email,
       updated: new Date(),
       artistRankings
     });

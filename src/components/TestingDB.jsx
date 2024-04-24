@@ -4,6 +4,7 @@ import { db } from '@/lib/firebase';
 import { addDoc, collection,getDocs, deleteDoc, where, query} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import LineChartRanks from './LineChartRanks';
+import { useSession } from "next-auth/react";
 
 
 
@@ -11,6 +12,7 @@ export const TestingDB = () => {
   
 const TestCollectionRef = collection(db,"ArtistRankings")
 
+const{data:session} = useSession()
 const [dbStat, setDBStat] = useState([])
 
 const  [name, setName] = useState([])
@@ -21,7 +23,7 @@ useEffect(() => {
     //const q = await getDocs(TestCollectionRef);
     
     //setName(q.docs)
-    await getDocs(query(TestCollectionRef, where("userID", "==", "datguyandris")))
+    await getDocs(query(TestCollectionRef, where("userID", "==", session.user.email)))
     .then((snapshot)=>{               
         const newData = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id })).sort((a, b) => a.updated - b.updated);
 

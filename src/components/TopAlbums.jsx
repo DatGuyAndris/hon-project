@@ -49,7 +49,7 @@ const TopAlbums = ({topSongsAlbums}) => {
        
         data={countAlbums} 
         dataKey="size"
-        aspectRatio={16 / 4}
+        aspectRatio={10/ 2}
         stroke="#fff"
         fill="#004a06">
         <Tooltip content={<CustomTooltip />}/>
