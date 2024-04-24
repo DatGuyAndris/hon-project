@@ -49,7 +49,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
   }
 
   const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
-  const averagePopularity = getAverageThing(listPopularity).toFixed(0)
+  const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
   console.log("averagepopul",averagePopularity)
 
  //console.log("topSongsForRec",topSongsforRec)
@@ -83,11 +83,8 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     })
     .filter((genre, index, self) => self.indexOf(genre) === index && genre!== null).join(",")
 
-  // console.log("genreslist" , listedGenres)
    console.log("genrestouse", genresToUse)
-   //console.log("aa", validgenre)
    console.log("updated", updatedGenres)
-
 
 
     //console.log("topsongsforrec",topSongsforRec)
@@ -110,8 +107,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       })
     }
   })
-  console.log("errr", genreserr)
-  console.log("recsongsFromTop",recSongsDatafromTop)
+  //console.log("recsongsFromTop",recSongsDatafromTop)
   return (
 
 
@@ -124,10 +120,12 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       <div className='w-full grid-cols-2 text-neutral-200 py-2'> 
         {recSongsDatafromTop.data?.tracks.map((recSong)=>
           <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full'>
+           
             <img
                 src={recSong.album.images[0].url}
                 className='w-20 h-20'
                 ></img>
+
                 <div className='w-5/6'>
            <p className='text-xl'>{recSong.name} </p>  
            <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer'>{recSong.artists[0].name}</p></Link>

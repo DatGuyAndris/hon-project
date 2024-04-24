@@ -89,7 +89,6 @@ function calculateWeeks(startDate, endDate) {
   if (isNaN(start.getTime()) || isNaN(end.getTime())) {
     return "Invalid date format!";
   }
-
   const timeDifference = Math.abs(end - start);
   // Convert milliseconds to weeks
   const weeksDifference = timeDifference / (1000 * 60 * 60 * 24 * 7);
@@ -122,7 +121,6 @@ function calculateWeeks(startDate, endDate) {
       addToFB();
     }
   };
-
   const addToFB = () => {
     const artistRankings = myTopArtistData?.data.items?.slice(0, 10).map((artist, index) => {
       return {
@@ -131,7 +129,6 @@ function calculateWeeks(startDate, endDate) {
         rank: index + 1,
       };
     });
-
     addDoc(artistCollectionRef, {
       userID: session.user.email,
       updated: new Date(),

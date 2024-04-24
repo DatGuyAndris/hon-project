@@ -5,10 +5,8 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { PlayIcon,PauseIcon,QueueListIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import SpotifyWebPlayer from 'react-spotify-web-playback'
-import PlayRecommended from './PlayRecommended'
 
-const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
+const GetRecommendations = ({songs,recentAttributes, setPlayThisUri, playThisUri}) => {
 
   const{data:session} = useSession()
   const [avePop, setAvePop] = useState({});
@@ -22,18 +20,15 @@ const GetRecommendations = ({songs, setPlayThisUri, playThisUri}) => {
 
  // console.log("seed",seedTrackIds)
 
-  
  // function to get the average
   function getAverageThing(array) {
-    // Check if the array is empty or contains only zeros
+
     console.log("arrayForPopularity",array)
     if (array.length === 0 ) {
         return 0;
     }
     return array.reduce((acc, val) => acc + val, 0) / array.length;
   }
-
-
 const listForPop = [
   {value: songs?.map((songPop) => songPop.track.popularity)
    }
@@ -47,14 +42,18 @@ useEffect(() => {
 setAvePop(avePops);
 }, [])
 
-//console.log("allpop", listForPop)
-
 const actualAve = avePop[0]?.average
-console.log("avepop", actualAve)
+
+const aveDance = parseFloat(recentAttributes[0].value)
+const aveEnergy = parseFloat(recentAttributes[1].value)
+const aveValence = parseFloat(recentAttributes[2].value)
+const aveSpeech = parseFloat(recentAttributes[3].value)
+
+console.log("aves", aveDance,aveEnergy)
 
 
   const {data:recSongsData, status, error} = useQuery({
-      queryKey:["recSongsQuery",songs,actualAve],
+      queryKey:["recSongsQuery",songs,actualAve,aveDance,aveEnergy],
       enabled:!!session,
       refetchOnWindowFocus: false,    
       queryFn:() => {
@@ -62,7 +61,12 @@ console.log("avepop", actualAve)
           params: {
             seed_tracks: seedTrackIds,
             seed_artists: seedArtistIds,
-            max_popularity: actualAve
+            max_popularity: actualAve,
+            target_danceability: aveDance,
+            target_energy: aveEnergy,
+            target_speechiness:aveSpeech,
+            target_valence: aveValence,
+
           },
           headers: {
             Authorization: `Bearer ${session.accessToken}`
@@ -70,11 +74,12 @@ console.log("avepop", actualAve)
         })
       }
     })
+
   
     //console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
       // console.log("play", playThisUri)
-    
+    console.log("recentrasdsa",recentAttributes)
   return (
     <div className='flex flex-col '>
     
