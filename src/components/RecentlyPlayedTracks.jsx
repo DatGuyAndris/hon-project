@@ -25,7 +25,7 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/me/player/recently-played", {
         params: {
-          limit: 50,
+          limit: 40,
                 },
         headers: {
           Authorization: `Bearer ${session.accessToken}`,

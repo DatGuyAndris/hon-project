@@ -13,22 +13,13 @@ const GetRecommendations = ({songs,recentAttributes, setPlayThisUri, playThisUri
 
 // making the list of tracks and artists to be used for seeding recommendations
   const seedTracks =  songs?.map((song) => song.track.id);
-   const seedTrackIds = seedTracks.slice(0,3).join(",")
+   const seedTrackIds = seedTracks.slice(0,4).join(",")
 
    const seedArtists = songs?.map((artist) => artist.track.artists[0].id);
-   const seedArtistIds = seedArtists.slice(0,2).join(",")
+   const seedArtistIds = seedArtists.slice(6,7).join(",")
 
  // console.log("seed",seedTrackIds)
-
- // function to get the average
-  function getAverageThing(array) {
-
-    console.log("arrayForPopularity",array)
-    if (array.length === 0 ) {
-        return 0;
-    }
-    return array.reduce((acc, val) => acc + val, 0) / array.length;
-  }
+  
 const listForPop = [
   {value: songs?.map((songPop) => songPop.track.popularity)
    }
@@ -49,9 +40,6 @@ const aveEnergy = parseFloat(recentAttributes[1].value)
 const aveValence = parseFloat(recentAttributes[2].value)
 const aveSpeech = parseFloat(recentAttributes[3].value)
 
-console.log("aves", aveDance,aveEnergy)
-
-
   const {data:recSongsData, status, error} = useQuery({
       queryKey:["recSongsQuery",songs,actualAve,aveDance,aveEnergy],
       enabled:!!session,
@@ -66,7 +54,6 @@ console.log("aves", aveDance,aveEnergy)
             target_energy: aveEnergy,
             target_speechiness:aveSpeech,
             target_valence: aveValence,
-
           },
           headers: {
             Authorization: `Bearer ${session.accessToken}`
@@ -75,7 +62,13 @@ console.log("aves", aveDance,aveEnergy)
       }
     })
 
-  
+    function getAverageThing(array) {
+      console.log("arrayForPopularity",array)
+      if (array.length === 0 ) {
+          return 0;
+      }
+      return array.reduce((acc, val) => acc + val, 0) / array.length;
+    }
     //console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
       // console.log("play", playThisUri)

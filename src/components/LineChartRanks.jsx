@@ -13,19 +13,7 @@ import {
     Legend,
   } from "recharts";
 
-
 const LineChartRanks = ({dbDataforGraph}) => {
-
-console.log("fulldb", dbDataforGraph.map((stat) => {
-  return stat.artistRankings.map((artist) => {
-    return {
-      name: artist.artistName,
-      popularity: artist.popularity,
-      rank: artist.rank,
-      date: new Date(stat.updated.seconds * 1000).toLocaleDateString() // Convert date to localized string
-    };
-  });
-}))
 
 const groupDataByWeek = (data) => {
   const groupedData = {};
@@ -50,19 +38,14 @@ const groupDataByWeek = (data) => {
 
 // Get data grouped by week
 const groupedData = groupDataByWeek(dbDataforGraph);
-
 // Prepare data for LineChart
 const chartData = Object.keys(groupedData).sort((a, b) => new Date(a.date) - new Date(b.date)).map((week) => ({
   date: week,
   ...groupedData[week]
 }))
-
-
-console.log("dbdataok", dbDataforGraph)
+//console.log("dbdataok", dbDataforGraph)
 
   return (
-
-
     <div>
            <div className="w-full h-96 mt-5">
            <ResponsiveContainer>
@@ -75,7 +58,6 @@ console.log("dbdataok", dbDataforGraph)
         <YAxis />
         <Tooltip />
         <Legend />
-
         {Object.keys(chartData[0]).map((key) => {
             if (key !== 'date') {
                 return (

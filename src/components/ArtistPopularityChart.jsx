@@ -1,15 +1,9 @@
 'use client'
 import React, { PureComponent }  from 'react'
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from 'axios';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 const ArtistPopularityChart = ({topArtistsData}) => {
-    
-
     
   return (
    <> <div className="h-96 m-5 w-full block"> 
@@ -39,11 +33,7 @@ const ArtistPopularityChart = ({topArtistsData}) => {
 
         </BarChart>
       </ResponsiveContainer> 
-      </div> </>
-
-
-
-   
+      </div> </> 
   )
 }
 
@@ -54,8 +44,6 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip flex flex-col items-center justify-center">
-        {/* <p className="label">{`${label} : ${payload[0].value}`}</p>
-        <p className="intro">{getIntroOfPage(label)}</p> */}
 
         <p className="text-2xl">{`${payload[0].payload.name}`}</p>
         <img
@@ -66,7 +54,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         ></img>
         <p className="label">{`Popularity : ${payload[0].payload.popularity}`}</p>
         <p className="label">{`Your #${payload[0].payload.rank } Artist`}</p>
-        <p className="desc">Anything you want can be displayed here.</p>
+        {/* <p className="desc">Anything you want can be displayed here.</p> */}
       </div>
     );
   }

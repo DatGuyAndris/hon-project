@@ -147,13 +147,10 @@ function calculateWeeks(startDate, endDate) {
 
     <div className='sm:w-5/6 sm:grid flex flex-col sm:grid-cols-2 mt-2 w-full'>
     {/*Displaying the data from both api calls and a graph of top artist popularity  -- - - - - - - -  */}
-
     {/*  Displaying top artists if there is top artist data     */}
     
     {myTopArtistData && myTopArtistData.data?.items ? (
         <>
-      
-        
       <p className='text-center col-span-2 text-2xl bg-gradient-to-r from-transparent via-neutral-800'> Top Artists </p>
           <div className="grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-2 pb-96 ">
              
@@ -162,11 +159,9 @@ function calculateWeeks(startDate, endDate) {
               <div key={"topArtist_" + topArtist.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
                 <p className='w-14 h-24 text-2xl align-middle text-center '>{index+1}.</p>
                 
-                
                 <img className='w-24 h-24 object-cover aspect-square'
                   src={topArtist.images[0].url}
-                  // width="100%"
-                  // height="100%"
+            
                 ></img>
                 <div className='w-full h-full ml-3 '>
                 <p className=' text-2xl h-full ' >{topArtist.name}</p>
@@ -175,7 +170,6 @@ function calculateWeeks(startDate, endDate) {
                 <p key={index+100} className='text-sm text-neutral-300 mt-8' > {topGenres + ", "}  </p>))}</div>
                 </div>
               </div>
-            
             ))}
             </div>
           
@@ -205,7 +199,6 @@ function calculateWeeks(startDate, endDate) {
                 <p className='ml-3 w-2/3 h-1/2 text-xl text-neutral-300' > {topSong.artists[0].name}  </p>
                 
                 </div>
-                  
                 </div>
               ))}
             </div>

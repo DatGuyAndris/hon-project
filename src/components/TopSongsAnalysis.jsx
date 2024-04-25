@@ -3,10 +3,6 @@ import { Tooltip } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 
-
-
-
-
 const TopSongsAnalysis = ({topSongStats: stats}) => {
 
   //console.log("dataforAnalysis",stats)
@@ -64,7 +60,6 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
           }
       
     ]
-
     function getAverageThing(array) {
       // Check if the array is empty or contains only zeros
       if (array.length === 0 ) {
@@ -79,11 +74,9 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
         value: item2.value,
         average: getAverageThing(item2.value).toFixed(2)
     }));
-
     setIndStat(indDataAverages);
     }, [])
-
-    
+  
     useEffect(() => {
       const dataWithAverages = data.map(item => ({
           attribute: item.attribute,
@@ -92,7 +85,6 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
       }));
       setAverageStat(dataWithAverages);  
   }, []);
-
 
       // console.log("averagesssss",averageStat)
       // console.log("indStat",indStat)

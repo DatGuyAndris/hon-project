@@ -14,8 +14,6 @@ import { addDoc, collection,getDocs,query,where} from 'firebase/firestore';
 
 const GetUsersPlaylists = () => {
 
-
-
     const{data:session} = useSession()
     const {data:playlists} = useQuery({
         queryKey:["playlists"],

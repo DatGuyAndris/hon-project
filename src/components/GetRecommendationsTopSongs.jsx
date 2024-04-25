@@ -37,7 +37,6 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       });
     },
   });
-
   // function to get the average
   function getAverageThing(array) {
     // Check if the array is empty or contains only zeros
@@ -48,9 +47,11 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     return array?.reduce((acc, val) => acc + val, 0) / array?.length;
   }
 
-  const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
-  const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
-  console.log("averagepopul",averagePopularity)
+  
+ // console.log("222",topTwoArtists)
+
+  
+  //console.log("averagepopul",averagePopularity)
 
  //console.log("topSongsForRec",topSongsforRec)
 
@@ -86,17 +87,21 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
    console.log("genrestouse", genresToUse)
    console.log("updated", updatedGenres)
 
+   const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
+  const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
 
+   const topTwoArtists = topSongsforRec?.data?.items.map((id) => id.id).slice(0,2).join(",")
     //console.log("topsongsforrec",topSongsforRec)
  
   // Api Call for recommendations based on top songs  - - -- - - - - - - -- - - 
   const {data:recSongsDatafromTop,error:genreserr} = useQuery({
-    queryKey:["recSongsQuery2",genresToUse],
+    queryKey:["recSongsQuery2",genresToUse,topTwoArtists],
     enabled:!!session && !!genresToUse && !!averagePopularity,
     refetchOnWindowFocus: false,    
     queryFn:() => {
       return axios.get("https://api.spotify.com/v1/recommendations", {
         params: {
+          seed_artists:topTwoArtists,
           seed_genres: genresToUse,
           max_popularity: averagePopularity
           
@@ -109,8 +114,6 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
   })
   //console.log("recsongsFromTop",recSongsDatafromTop)
   return (
-
-
 
     <div className='flex flex-col'>
     <div className='grid-cols-2 h-[80vh] overflow-y-scroll scrollbar'> 

@@ -21,7 +21,6 @@ const TopAlbums = ({topSongsAlbums}) => {
           acc[title] = (acc[title] || 0) + 1;
           return acc;
         }, {});
-  
         const albumTitleCountsArray = Object.entries(albumTitleCounts).map(([name, size]) => {
           const image = topSongsAlbums.data.items.find(song => song.album.name === name)?.album.images[0]?.url;
           return {
@@ -30,18 +29,13 @@ const TopAlbums = ({topSongsAlbums}) => {
             image
           };
         });
-  
         setCountAlbums(albumTitleCountsArray);
       }
     }, [topSongsAlbums]);
-
-    
+ 
     //console.log("easdas", countAlbums)
   return (
 
-
-        
-        
     <div className="h-96 w-full mt-20 block items-center">
     <p>Most common albums</p>
        <ResponsiveContainer>
@@ -54,13 +48,10 @@ const TopAlbums = ({topSongsAlbums}) => {
         fill="#004a06">
         <Tooltip content={<CustomTooltip />}/>
         <Cell
-                        fill={(entry) => entry.payload.image}
-                        stroke="#fff"
+         fill={(entry) => entry.payload.image}
+         stroke="#fff"
                     />
         </Treemap>
-       
-        
-      
       </ResponsiveContainer>
   
   </div>
@@ -68,7 +59,6 @@ const TopAlbums = ({topSongsAlbums}) => {
 }
 
 export default TopAlbums
-
 
 const CustomTooltip = ({ active, payload, label }) => {
   console.log("payload", payload)
