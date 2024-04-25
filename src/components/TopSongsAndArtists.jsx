@@ -95,11 +95,6 @@ function calculateWeeks(startDate, endDate) {
   return weeksDifference > 2;
 }
 
-// console.log("topSongAttributes", myTopSongsAttributeData,atterror)
-  
-     // console.log("topArtists", myTopArtistData,status);
-//      console.log("topSongs", myTopSongsData, error);
-//     // console.log(status);
 
   
     useEffect(() => {

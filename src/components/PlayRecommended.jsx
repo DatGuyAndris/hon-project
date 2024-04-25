@@ -11,7 +11,7 @@ const PlayRecommended = ({playThisUri}) => {
     const{data:session} = useSession()
     const playThisSong = <GetRecommendations playThisUri/>
 
-    console.log("playThisNOWPLS",playThisSong)
+
 
 
 

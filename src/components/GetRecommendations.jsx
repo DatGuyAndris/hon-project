@@ -63,7 +63,7 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
     })
 
     function getAverageThing(array) {
-      console.log("arrayForPopularity",array)
+      //console.log("arrayForPopularity",array)
       if (array.length === 0 ) {
           return 0;
       }
@@ -71,8 +71,7 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
     }
     //console.log("recommended:", recSongsData, status, error)
       // console.log("auth", auth)
-      // console.log("play", playThisUri)
-    console.log("recentrasdsa",recentAttributes)
+      
   return (
     <div className='flex flex-col '>
     

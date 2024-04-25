@@ -33,7 +33,6 @@ const TopAlbums = ({topSongsAlbums}) => {
       }
     }, [topSongsAlbums]);
  
-    //console.log("easdas", countAlbums)
   return (
 
     <div className="h-96 w-full mt-20 block items-center">
@@ -61,7 +60,7 @@ const TopAlbums = ({topSongsAlbums}) => {
 export default TopAlbums
 
 const CustomTooltip = ({ active, payload, label }) => {
-  console.log("payload", payload)
+  //console.log("payload", payload)
   if (active && payload && payload.length) {
     return (
       <div className="treemap-custom-tooltip bg-slate-300 rounded-md text-black p-2 w-max flex flex-row">

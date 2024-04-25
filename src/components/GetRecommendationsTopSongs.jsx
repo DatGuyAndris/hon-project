@@ -40,7 +40,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
   // function to get the average
   function getAverageThing(array) {
     // Check if the array is empty or contains only zeros
-    console.log("arrayForPopularity",array)
+    //console.log("arrayForPopularity",array)
     if (array?.length === 0 ) {
         return 0;
     }
@@ -84,9 +84,6 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     })
     .filter((genre, index, self) => self.indexOf(genre) === index && genre!== null).join(",")
 
-   console.log("genrestouse", genresToUse)
-   console.log("updated", updatedGenres)
-
    const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
   const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
 
@@ -112,7 +109,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       })
     }
   })
-  //console.log("recsongsFromTop",recSongsDatafromTop)
+
   return (
 
     <div className='flex flex-col'>

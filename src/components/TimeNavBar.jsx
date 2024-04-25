@@ -11,7 +11,7 @@ const TimeNavBar = ({setTimeFrame}) => {
 const handleButtonClick = (timeSelected) => {
     // Change the value of myVariable when the button is clicked
     setTimeFrame(timeSelected);
-    console.log(timeSelected)
+   // console.log(timeSelected)
 }
   return (
     <nav style={styles.navbar}>

@@ -5,7 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 const TopSongsAnalysis = ({topSongStats: stats}) => {
 
-  //console.log("dataforAnalysis",stats)
+
     const [averageStat, setAverageStat] = useState({});
     const [indStat, setIndStat] = useState({});
 

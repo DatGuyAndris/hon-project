@@ -29,7 +29,6 @@ const GetUsersPlaylists = () => {
         }
       })
 
-      console.log("***",playlists)
 
       const noOfPlaylists = playlists?.data.items.length
 

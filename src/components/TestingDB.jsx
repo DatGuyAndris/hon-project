@@ -33,21 +33,20 @@ useEffect(() => {
   getTest();
 }, []);
 
-console.log("q",name)
-
-const handleSave = async () => {
-
-  const newData = await addDoc(collection(db,"test"), {
-    age: 5423,
-    name :"aaami",
-    field: "mud",
-    sky:"glue"
-
-  })
 
 
-  console.log("newdata",newData.id)
-}
+// const handleSave = async () => {
+
+//   const newData = await addDoc(collection(db,"test"), {
+//     age: 5423,
+//     name :"aaami",
+//     field: "mud",
+//     sky:"glue"
+
+//   })
+
+
+// }
 
 const deleteAll = async () => {
 
@@ -57,7 +56,7 @@ const deleteAll = async () => {
   });
 };
 
-console.log("name",name)
+
   return (
     <div>
       {/* ayyy

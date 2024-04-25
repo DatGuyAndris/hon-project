@@ -12,7 +12,7 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
    // function to get the average
    function getAverageThing(array) {
     // Check if the array is empty or contains only zeros
-    console.log("arrayForPopularity",array)
+   // console.log("arrayForPopularity",array)
     if (array?.length === 0 ) {
         return 0;
     }
