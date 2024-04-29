@@ -12,51 +12,51 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
     const data = [ 
       {
         attribute: "Acoustiness", 
-        value:  stats?.data.audio_features.map((song) => 
-          song.acousticness),
+        value:  stats.data.audio_features.map((song) => 
+          song?.acousticness),
         },
         {
           attribute: "Instrumentalness", 
-          value: stats?.data.audio_features.map((song) => 
-          song.instrumentalness)
+          value: stats.data.audio_features.map((song) => 
+          song?.instrumentalness)
           },
         {
           attribute: "Danceability", 
-          value:stats?.data.audio_features.map((song) => 
-            song.danceability)
+          value:stats.data.audio_features.map((song) => 
+            song?.danceability)
           },
           {
             attribute: "Energy", 
-            value: stats?.data.audio_features.map((song) => 
-            song.energy)
+            value: stats.data.audio_features.map((song) => 
+            song?.energy)
             },
                   {
                     attribute: "Speechiness", 
-                    value: stats?.data.audio_features.map((song) => 
-                    song.speechiness)
+                    value: stats.data.audio_features.map((song) => 
+                    song?.speechiness)
                     },
                     {
                       attribute: "Liveness", 
-                      value: stats?.data.audio_features.map((song) => 
-                      song.liveness)
+                      value: stats.data.audio_features.map((song) => 
+                      song?.liveness)
                       },
                     
                       {
                         attribute: "Valence", 
-                        value: stats?.data.audio_features.map((song) => 
-                        song.valence)
+                        value: stats.data.audio_features.map((song) => 
+                        song?.valence)
                         }
     ]
     const indData = [
       {
         attribute: "Tempo", 
-        value: stats?.data.audio_features.map((song) => 
-        song.tempo)
+        value: stats.data.audio_features.map((song) => 
+        song?.tempo)
         },
         {
           attribute: "Loudness", 
-          value: stats?.data.audio_features.map((song) => 
-          song.loudness )
+          value: stats.data.audio_features.map((song) => 
+          song?.loudness )
           }
       
     ]
