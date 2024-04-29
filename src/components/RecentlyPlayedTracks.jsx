@@ -81,9 +81,9 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
 
   return (
 
-    <main className='w-5/6 '>
+    <main className='w-5/6 mt-10 mb-20'>
     {myRecentSongsData && myRecentSongsData.data?.items ? (
-      <><div className='mt-20 w-full '>
+      <><div className='w-full '>
       <GetRecommendations songs={myRecentSongsData.data.items} recentAttributes = {recentAttributes} setPlayThisUri={setPlayThisUri} playThisUri ={playThisUri}/>  </div>
       {/* <div>Recent: {myRecentSongsData.data?.items.map((recent,index)=><div key={ recent.track.id + index}>{recent.track.name} - {recent.track.artists[0].name} </div> )}</div>  */}
        </>

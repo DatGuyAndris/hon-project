@@ -14,20 +14,20 @@ const handleButtonClick = (timeSelected) => {
    // console.log(timeSelected)
 }
   return (
-    <nav style={styles.navbar}>
-      <div style={styles.container}>
+  
+      <div className='w-full items-center text-center flex-row justify-center '>
         {/* <div style={styles.brand}>Your Logo</div> */}
-        <div style={styles.buttonsContainer}>
+        
+        
+          <button className='bg-green-800 h-10 rounded-sm px-1 mx-1 w-56' onClick={() => handleButtonClick('short_term')}  >Short Term {"(4 Weeks)"}</button>
 
-          <button style={styles.button} onClick={() => handleButtonClick('short_term')}  >Short Term {"(4 Weeks)"}</button>
+          <button className='bg-green-800 h-10 rounded-sm px-1 mx-1 w-56' onClick={() => handleButtonClick('medium_term')}>Medium Term {"(6 Months)"}</button> 
 
-          <button style={styles.button} onClick={() => handleButtonClick('medium_term')}>Medium Term {"(6 Months)"}</button> 
-
-          <button style={styles.button} onClick={() => handleButtonClick('long_term')}>Long Term </button> 
+          <button className='bg-green-800 h-10 rounded-sm px-1 mx-1 w-56' onClick={() => handleButtonClick('long_term')}>Long Term </button> 
     
         </div>
-      </div>
-    </nav>
+    
+    
 
     
   );

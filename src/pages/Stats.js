@@ -15,13 +15,16 @@ export default function Stats() {
     <>
       {" "}
       {session ? (
-        <main className="flex flex-col items-center">
+        <main className="flex flex-col items-center h-full">
           <Navbar />
-          <div> Just random stats and graphs here about the users music</div>
+
           <div className="w-5/6">
+            <p className="w-full text-center text-2xl my-5 bg-gradient-to-r from-transparent via-neutral-800">
+              Current top 10 artists overtime rankings
+            </p>
             <TestingDB />
           </div>
-          <div>
+          <div className="w-5/6 ">
             <GetUsersPlaylists />
           </div>
         </main>

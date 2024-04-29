@@ -28,8 +28,9 @@ export default function Recommendations() {
       </div> */}
           <div className="w-5/6">
             {session?.accessToken && playThisUri ? (
-              <div>
+              <div className="mt-2">
                 {" "}
+                {/* https://www.npmjs.com/package/@chrisuh10/react-spotify-web-playback */}
                 <SpotifyWebPlayer
                   token={session.accessToken}
                   uris={playThisUri}
@@ -38,7 +39,14 @@ export default function Recommendations() {
                   syncExternalDevice
                   persistDeviceSelection
                   styles={{
-                    bgColor: "#3333",
+                    bgColor: "#242424",
+
+                    color: "#fff",
+                    loaderColor: "#fff",
+                    sliderColor: "#1cb954",
+                    savedColor: "#fff",
+                    trackArtistColor: "#ccc",
+                    trackNameColor: "#fff",
                   }}
                 />{" "}
               </div>
@@ -51,7 +59,7 @@ export default function Recommendations() {
               playThisUri={playThisUri}
             />
 
-            <div className="mt-20">
+            <div className="mb-20">
               <GetRecommendationsTopSongs
                 setPlayThisUri={setPlayThisUri}
                 playThisUri={playThisUri}

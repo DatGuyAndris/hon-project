@@ -140,21 +140,21 @@ function calculateWeeks(startDate, endDate) {
   return (
 
 
-    <div className='sm:w-5/6 sm:grid flex flex-col sm:grid-cols-2 mt-2 w-full'>
+    <div className='sm:w-5/6 sm:grid flex flex-col sm:grid-cols-2 mt-2 w-full pb-16'>
     {/*Displaying the data from both api calls and a graph of top artist popularity  -- - - - - - - -  */}
     {/*  Displaying top artists if there is top artist data     */}
     
     {myTopArtistData && myTopArtistData.data?.items ? (
         <>
-      <p className='text-center col-span-2 text-2xl bg-gradient-to-r from-transparent via-neutral-800'> Top Artists </p>
-          <div className="grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-2 pb-96 ">
+      <p className='text-center col-span-2 text-2xl bg-gradient-to-r from-transparent via-neutral-800 mb-2'> Top Artists </p>
+          <div className="grid-cols-2 w-full max-h-[80vh] overflow-y-scroll scrollbar mt-2">
              
             
             {myTopArtistData.data.items.map((topArtist, index) => (
-              <div key={"topArtist_" + topArtist.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
+              <div key={"topArtist_" + topArtist.id} className=' bg-neutral-800 w-full mb-2 max-h-20 flex flex-row' >
                 <p className='w-14 h-24 text-2xl align-middle text-center '>{index+1}.</p>
                 
-                <img className='w-24 h-24 object-cover aspect-square'
+                <img className='w-20 h-20 object-cover aspect-square'
                   src={topArtist.images[0].url}
             
                 ></img>
@@ -162,36 +162,36 @@ function calculateWeeks(startDate, endDate) {
                 <p className=' text-2xl h-full ' >{topArtist.name}</p>
               <div className='flex h-full'>
                 {topArtist.genres.map((topGenres, index) => (
-                <p key={index+100} className='text-sm text-neutral-300 mt-8' > {topGenres + ", "}  </p>))}</div>
+                <p key={index+100} className='text-sm text-neutral-300 mt-6' > {topGenres + ", "}  </p>))}</div>
                 </div>
               </div>
             ))}
             </div>
           
-          <div className=''> <div >
+          <div className='justify-center align-middle text-center'> <div >
          <TopGenresChart topArtists = {myTopArtistData}/>
-        <div className='mt-32 mx-5'><ArtistPopularityChart topArtistsData = {myTopArtistData}/></div></div>
+        <div className='mt-20 mx-5 justify-center text-center align-middle'><ArtistPopularityChart topArtistsData = {myTopArtistData}/></div></div>
         </div>
 
 
-        <p className='text-center text-2xl mt-5 col-span-2 bg-gradient-to-r from-transparent via-neutral-800'> Top Songs</p> 
+        <p className='text-center text-2xl mt-5  col-span-2 bg-gradient-to-r from-transparent via-neutral-800'> Top Songs</p> 
     {/*  Displaying top songs if there is top song data     */}
           {myTopSongsData && myTopSongsData.data?.items ? (
 
-            <div className='grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-10' >
+            <div className='grid-cols-2 w-full h-[80vh] overflow-y-scroll scrollbar mt-10 mb-10' >
              
               {myTopSongsData.data.items.map((topSong, index2) => (
-                <div key={"topSongs_" + topSong.id} className=' bg-neutral-800 w-full mt-2 p-1 flex flex-row' >
+                <div key={"topSongs_" + topSong.id} className=' bg-neutral-800 w-full mb-2 max-h-20 flex flex-row' >
                   <p className='w-14 h-24 text-2xl align-middle text-center'>{index2+1}.</p>
                   <img
                   src={topSong.album.images[0].url}
                 // width="100%"
                 // height="100%"
-                className='w-24 h-24 object-cover'
+                className='w-20 h-20 object-cover'
                 ></img>
                 <div className='w-full'>
-                <p className='ml-3 w-2/3 h-1/2 text-2xl'> {topSong.name} </p>
-                <p className='ml-3 w-2/3 h-1/2 text-xl text-neutral-300' > {topSong.artists[0].name}  </p>
+                <p className='ml-3 w-5/6 h-1/2 text-2xl mb-3 overflow-auto'> {topSong.name} </p>
+                <p className='ml-3 w-2/3 h-1/2 text-l text-neutral-300' > {topSong.artists[0].name}  </p>
                 
                 </div>
                 </div>
@@ -206,7 +206,7 @@ function calculateWeeks(startDate, endDate) {
       {myTopSongsData && myTopSongsAttributeData && myTopSongsAttributeData.data?.audio_features.length !=0 ? (
       <div className='' >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 
-        <div className='mt-10 '><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
+        <div className='mt-10 mx-10 text-center items-center justify-center'><TopAlbums topSongsAlbums = {myTopSongsData}/></div> 
        </div> ) : null}
       </div> 
       

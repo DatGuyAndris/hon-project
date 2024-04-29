@@ -45,8 +45,9 @@ const GetUsersPlaylists = () => {
   return (
 
 
-    <div className='text-3xl'>
-      <div> You have {noOfPlaylists} playlists</div>
+    <div className='mt-5 text-3xl w-fullh-[60vh] text-center'>
+      <p className='bg-gradient-to-r from-transparent via-neutral-800'> More </p>
+      <p> You have {noOfPlaylists} playlists</p>
 
       
       

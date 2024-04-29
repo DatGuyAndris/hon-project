@@ -6,7 +6,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 const ArtistPopularityChart = ({topArtistsData}) => {
     
   return (
-   <> <div className="h-96 m-5 w-full block"> 
+   <> <div className="h-96 m-5 w-full block align-bottom items-center text-center"> 
    <p className='text-center text-xl mb-3'>Top Artist Popularity</p>
         <ResponsiveContainer>
         <BarChart

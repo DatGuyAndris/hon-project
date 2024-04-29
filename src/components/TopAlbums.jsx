@@ -63,15 +63,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   //console.log("payload", payload)
   if (active && payload && payload.length) {
     return (
-      <div className="treemap-custom-tooltip bg-slate-300 rounded-md text-black p-2 w-max flex flex-row">
+      <div className="treemap-custom-tooltip bg-neutral-800 rounded-md text-white p-2 w-max flex flex-row bg-opacity-95">
         
         <img
           src={payload[0].payload.image}
-          width="30%"
-          height="30%"
+          width="20%"
+          height="20%"
           className="rounded-md"
         ></img>
-        <p>{`${payload[0].payload.name}`}</p>
+        <p className='text-2xl p-2'>{`${payload[0].payload.name}`}</p>
         {/* <p>{`${payload[0].payload.name} : ${payload[0].value}`}</p> */}
       </div>
     );

@@ -54,6 +54,7 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
             target_energy: aveEnergy,
             target_speechiness:aveSpeech,
             target_valence: aveValence,
+            limit: 40
           },
           headers: {
             Authorization: `Bearer ${session.accessToken}`
@@ -75,26 +76,26 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
   return (
     <div className='flex flex-col '>
     
-    <div className='grid-cols-2 '> 
-    <p className='text-xl m-2'> Recommended from recent listening </p>
+    <div className='grid-cols-2 h-full'> 
+    <p className='text-xl mb-5 text-center bg-gradient-to-r from-transparent via-neutral-800'> Based on your recent listening </p>
     
     {session.accessToken && recSongsData && recSongsData.data?.tracks ? (
-      <div className='w-full grid-cols-2 text-neutral-200 py-2 h-[80vh] overflow-y-scroll scrollbar '> 
+      <div className='w-full grid-cols-2 text-neutral-200 h-[80vh] overflow-y-scroll scrollbar '> 
       
       
         {recSongsData.data?.tracks.map((recSong)=>
-          <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mt-2 text-l w-full '>
+          <div key={"recommended_"+recSong.id} className='flex items-center grid-rows-2 space-x-4 bg-neutral-800 hover:bg-white hover:bg-opacity-10 mb-2 text-l w-full '>
             <img
                 src={recSong.album.images[0]?.url}
-                className='w-20 h-20'
+                className='w-16 h-16'
                 ></img>
                 <div className='w-5/6'>
            <p className='text-xl'>{recSong.name} </p>  
-           <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer'>{recSong.artists[0].name}</p></Link>
+           <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer text-sm'>{recSong.artists[0].name}</p></Link>
            
            
            </div>
-           <div className='w-52 text-right'> {<PlayIcon className='w-11 h-11 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
+           <div className='w-52 text-right'> {<PlayIcon className='w-9 h-9 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
              </div>)}
           
              

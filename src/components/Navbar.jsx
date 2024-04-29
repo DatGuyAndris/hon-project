@@ -15,12 +15,12 @@ const Navbar = () => {
         {/* <div style={styles.brand}>Your Logo</div> */}
       
           
-          {session? ( <button onClick={()=>signOut('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} 
+          {session? ( <button onClick={()=>signOut('spotify', {callbackUrl: "/"})} className='bg-green-900 h-12 rounded-sm px-1 text-l mx-1 w-40'> Logout</button>) : <button onClick={()=>signIn('spotify', {callbackUrl: "/"})} style={styles.loginbutton}> Login</button>} 
 
-         <div className='flex justify-center items-center w-full pl-40'>
-          <Link href="/"> <button style={styles.button}>Your Data</button></Link> 
-          <Link href="Recommendations"><button style={styles.button}>Recommendations</button> </Link> 
-          <Link href="Stats"><button style={styles.button}>Random Stats</button> </Link>
+         <div className='flex justify-center items-center w-full pl-40 bg-gradient-to-r from-transparent via-neutral-800'>
+          <Link href="/"> <button className='bg-green-900 h-12 rounded-sm px-1 text-xl mx-1 w-64'>Your Data</button></Link> 
+          <Link href="Recommendations"><button className='bg-green-900 h-12 rounded-sm px-1 text-xl mx-1 w-64'>Recommendations</button> </Link> 
+          <Link href="Stats"><button className='bg-green-900 h-12 rounded-sm px-1 text-xl mx-1 w-64 '>Random Stats</button> </Link>
           </div>
            
 
