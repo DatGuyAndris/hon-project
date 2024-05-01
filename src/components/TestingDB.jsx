@@ -66,7 +66,7 @@ const deleteAll = async () => {
               console.log("stat", stat)
               return(<div> {stat.updated} </div>)
             })} */}
-            {name?.length > 0 ?  (<LineChartRanks dbDataforGraph={name}/>) : <p>No data for you</p>}
+            {name?.length > 0 ?  (<LineChartRanks dbDataforGraph={name}/>) : <p>Loading your data ...</p>}
             
     </div>
   );

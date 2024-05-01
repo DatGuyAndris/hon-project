@@ -5,7 +5,10 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 const TopGenresChart = ({ topArtists: data }) => {
   const [genresState, setGenresState] = useState({});
-//console.log("topGenresOGData",data)
+
+
+
+// Maps through genres, if first time seeing genre, add it to new list, if not first time increase count 
 useEffect(() => {
   let updatedGenres = [];
   data.data.items?.map((item) => {
@@ -23,6 +26,7 @@ useEffect(() => {
     });
   });
 
+  //sort and limit the list to top 10 genres
   updatedGenres.sort((a, b) => b.count - a.count);
   const topGenres = updatedGenres.slice(0,10);
   setGenresState(topGenres);

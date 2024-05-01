@@ -15,8 +15,11 @@ import {
 
 const LineChartRanks = ({dbDataforGraph}) => {
 
+
+  //Groups data for each week from the database and ranks them.
 const groupDataByWeek = (data) => {
   const groupedData = {};
+
   data.forEach((entry) => {
       const week = new Date(entry.updated.seconds * 1000).toLocaleDateString("en-UK", {year: 'numeric', month: '2-digit', day: '2-digit'});
       if (!groupedData[week]) {
@@ -98,7 +101,6 @@ const CustomTooltip = ({ active, payload, label }) => {
           ></img>
           <p className="label">{`Popularity : ${payload[0].payload.popularity}`}</p>
           <p className="label">{`Your #${payload[0].payload.rank + 1} Artist`}</p>
-          <p className="desc">Anything you want can be displayed here.</p>
         </div>
       );
     }

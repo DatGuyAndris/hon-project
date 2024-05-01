@@ -47,15 +47,9 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     return array?.reduce((acc, val) => acc + val, 0) / array?.length;
   }
 
-  
- // console.log("222",topTwoArtists)
 
-  
-  //console.log("averagepopul",averagePopularity)
 
- //console.log("topSongsForRec",topSongsforRec)
-
-  // Gets the genres from the top songs, lists and counts them 
+  // Gets the genres from the top songs, lists and counts them
   let updatedGenres = [];
     topSongsforRec?.data.items?.map((item) => {
       item.genres.map((genre) => {
@@ -72,10 +66,13 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
         }
       });
     });
+    // replaces spaces with - as thats what they use instead of spaces for the spotify seed genres
     const changeSpaces = updatedGenres.map((genre) => {
       return genre.genre.replace(/\s/g, "-");
     });
 
+
+    //sorts and counts genres and matches the users genres to the spotify seed genres
     const genresToUse =  changeSpaces
     .sort((a,b) => b.count - a.count)
     .map((genre) => {
@@ -84,11 +81,16 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
     })
     .filter((genre, index, self) => self.indexOf(genre) === index && genre!== null).join(",")
 
-   const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
-  const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
 
+
+   const listPopularity = topSongsforRec?.data.items.map((pop) => pop.popularity)
+
+   //gets average popularity and uses 90% of it for recommendations
+   const averagePopularity = (getAverageThing(listPopularity) * 0.9).toFixed(0)
+
+   //top 2 artists
    const topTwoArtists = topSongsforRec?.data?.items.map((id) => id.id).slice(0,2).join(",")
-    //console.log("topsongsforrec",topSongsforRec)
+   
  
   // Api Call for recommendations based on top songs  - - -- - - - - - - -- - - 
   const {data:recSongsDatafromTop,error:genreserr} = useQuery({
@@ -110,6 +112,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
       })
     }
   })
+
   return (
 
     <div className='flex flex-col h-full mt-10 mb-20'>
@@ -128,7 +131,7 @@ const GetRecommendationsTopSongs = ({setPlayThisUri, playThisUri}) => {
 
                 <div className='w-5/6'>
            <p className='text-xl'>{recSong.name} </p>  
-           <Link href={""}><p className='hover:underline w-fit text-sm hover:cursor-pointer mt-2 text-neutral-300'>{recSong.artists[0].name}</p></Link>
+           <Link href={recSong.artists[0].external_urls.spotify} target='_blank'><p className='hover:underline w-fit text-sm hover:cursor-pointer mt-2 text-neutral-300'>{recSong.artists[0].name}</p></Link>
            </div>
            <div className='w-52 text-right'> {<PlayIcon className='w-9 h-9 float-end mr-10 text-neutral-500 hover:text-green-700 mt-2' onClick={() => {setPlayThisUri(recSong.uri)}}/>}</div>
              </div>)}

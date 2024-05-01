@@ -95,13 +95,13 @@ function calculateWeeks(startDate, endDate) {
   return weeksDifference > 2;
 }
 
-
-  
     useEffect(() => {
       refetch(), ts(), tsa();
     }, [timeFrame]);
 
 
+
+    //Checking if current user has data in database and if last data was over 2 weeks ago, if yes add new data to the db
     useEffect(() => {
   if (status !== "success") return;
 
@@ -185,8 +185,6 @@ function calculateWeeks(startDate, endDate) {
                   <p className='w-14 h-24 text-2xl align-middle text-center'>{index2+1}.</p>
                   <img
                   src={topSong.album.images[0].url}
-                // width="100%"
-                // height="100%"
                 className='w-20 h-20 object-cover'
                 ></img>
                 <div className='w-full'>
@@ -202,7 +200,6 @@ function calculateWeeks(startDate, endDate) {
         </>
       ) : null}
 
-      
       {myTopSongsData && myTopSongsAttributeData && myTopSongsAttributeData.data?.audio_features.length !=0 ? (
       <div className='' >
         <div><TopSongsAnalysis topSongStats = {myTopSongsAttributeData}/></div> 

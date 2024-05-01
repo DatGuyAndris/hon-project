@@ -12,15 +12,18 @@ const TopAlbums = ({topSongsAlbums}) => {
 
     //console.log("topalbums", topSongsAlbums)
 
+
+    //Maps through the albums and counts how many times each album appears in top songs
     useEffect(() => {
       if (topSongsAlbums && topSongsAlbums.data && topSongsAlbums.data.items) {
+
         const albumTitles = topSongsAlbums.data.items.map(song => song.album.name);
-  
-        
         const albumTitleCounts = albumTitles.reduce((acc, title) => {
           acc[title] = (acc[title] || 0) + 1;
           return acc;
         }, {});
+
+
         const albumTitleCountsArray = Object.entries(albumTitleCounts).map(([name, size]) => {
           const image = topSongsAlbums.data.items.find(song => song.album.name === name)?.album.images[0]?.url;
           return {
@@ -35,14 +38,14 @@ const TopAlbums = ({topSongsAlbums}) => {
  
   return (
 
-    <div className="h-96 w-full mt-20 block items-center">
+    <div className="h-[39vh] w-full mt-20 block items-center">
     <p>Most common albums</p>
        <ResponsiveContainer>
        <Treemap
        
         data={countAlbums} 
         dataKey="size"
-        aspectRatio={10/ 2}
+        aspectRatio={16/ 2}
         stroke="#fff"
         fill="#004a06">
         <Tooltip content={<CustomTooltip />}/>

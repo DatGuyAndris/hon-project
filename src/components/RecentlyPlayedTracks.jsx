@@ -52,7 +52,7 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
     })
     //console.log("recentlyplayed",myRecentSongsAttributeData)
 
-
+//Data to be passed through to get recommendations
     const recentAttributes = [ 
       {
         attribute: "Danceability", 
@@ -74,8 +74,6 @@ const RecentlyPlayedTracks = ({setPlayThisUri, playThisUri}) => {
             value: getAverageThing(myRecentSongsAttributeData?.data.audio_features.map((song) => 
               song.speechiness)).toFixed(2)
             }]
-
-   
       
             //console.log("recentatrii",recentAttributes)
 

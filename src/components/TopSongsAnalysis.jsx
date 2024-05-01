@@ -9,6 +9,10 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
     const [averageStat, setAverageStat] = useState({});
     const [indStat, setIndStat] = useState({});
 
+
+
+
+    //getting the data for the radial graph for song analysis, not the best way of doing it but works as needed 
     const data = [ 
       {
         attribute: "Acoustiness", 
@@ -47,6 +51,8 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
                         song?.valence)
                         }
     ]
+
+    //same as above but in seperate list cause its displayed individually and has a different range
     const indData = [
       {
         attribute: "Tempo", 
@@ -58,7 +64,6 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
           value: stats.data.audio_features.map((song) => 
           song?.loudness )
           }
-      
     ]
     function getAverageThing(array) {
       // Check if the array is empty or contains only zeros
@@ -68,6 +73,8 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
       return array.reduce((acc, val) => acc + val, 0) / array.length;
   }
 
+
+  
     useEffect(() => {
       const indDataAverages = indData.map(item2 => ({
         attribute: item2.attribute,
@@ -76,6 +83,7 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
     }));
     setIndStat(indDataAverages);
     }, [])
+
   
     useEffect(() => {
       const dataWithAverages = data.map(item => ({
@@ -86,9 +94,6 @@ const TopSongsAnalysis = ({topSongStats: stats}) => {
       setAverageStat(dataWithAverages);  
   }, []);
 
-      // console.log("averagesssss",averageStat)
-      // console.log("indStat",indStat)
-      // console.log("acoustic", data)
   return (
 
     

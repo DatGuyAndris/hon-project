@@ -18,7 +18,6 @@ const GetRecommendations = ({songs,recentAttributes, setPlayThisUri, playThisUri
    const seedArtists = songs?.map((artist) => artist.track.artists[0].id);
    const seedArtistIds = seedArtists.slice(6,7).join(",")
 
- // console.log("seed",seedTrackIds)
   
 const listForPop = [
   {value: songs?.map((songPop) => songPop.track.popularity)
@@ -33,8 +32,9 @@ useEffect(() => {
 setAvePop(avePops);
 }, [])
 
-const actualAve = avePop[0]?.average
 
+//set the values for the api call parameters, recentAttributes passed in from recently played
+const actualAve = avePop[0]?.average
 const aveDance = parseFloat(recentAttributes[0].value)
 const aveEnergy = parseFloat(recentAttributes[1].value)
 const aveValence = parseFloat(recentAttributes[2].value)
@@ -64,7 +64,6 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
     })
 
     function getAverageThing(array) {
-      //console.log("arrayForPopularity",array)
       if (array.length === 0 ) {
           return 0;
       }
@@ -91,7 +90,7 @@ const aveSpeech = parseFloat(recentAttributes[3].value)
                 ></img>
                 <div className='w-5/6'>
            <p className='text-xl'>{recSong.name} </p>  
-           <Link href={""}><p className='hover:underline w-fit hover:cursor-pointer text-sm'>{recSong.artists[0].name}</p></Link>
+           <Link href={recSong.artists[0].external_urls.spotify} target='_blank'><p className='hover:underline w-fit hover:cursor-pointer text-sm'>{recSong.artists[0].name}</p></Link>
            
            
            </div>
