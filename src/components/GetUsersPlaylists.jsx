@@ -91,8 +91,8 @@ const GetUsersPlaylists = () => {
       <p className='my-5'> You have {noOfPlaylists} public playlists</p>
 
       <div className='flex flex-row'>
-      <p className='w-1/3 my-5 bg-gradient-to-r from-transparent via-neutral-800 ml-2'>Your playlists by length</p>
-      <p className=' w-2/3 my-5 ml-32 bg-gradient-to-r from-transparent via-neutral-800'>Release year of your top songs from last 6 months</p>
+      <p className='w-1/3 text-2xl my-5 bg-gradient-to-r from-transparent via-neutral-800 ml-2'>Your playlists by length</p>
+      <p className=' w-2/3 text-2xl my-5 ml-32 bg-gradient-to-r from-transparent via-neutral-800'>Release year of your top songs from last 6 months</p>
       </div>
 
       <div className='flex flex-row'>
